@@ -1,0 +1,474 @@
+<% include common/header %><!-- 顶栏 -->
+
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li><a href="/"><span class="glyphicon glyphicon-star-empty"></span> 待审核</a></li>
+        <li><a href="/checkPro"><span class="glyphicon glyphicon-star"></span> 已审核</a></li>
+        <li><a href="/salesman"><span class="glyphicon glyphicon-film"></span> 用户管理</a></li>
+        <li class="active"><a href="/advert"><span class="glyphicon glyphicon-th-large"></span> 广告管理</a></li>
+        <li><a href="/user"><span class="glyphicon glyphicon-th"></span> 后台用户管理</a></li>
+        <li ><a href="/power"><span class="glyphicon glyphicon-stats"></span> 权限管理</a></li>
+        <li><a href="/project"><span class="glyphicon glyphicon-pencil"></span> 创建公益活动</a></li>
+        <li><a href="/loginView"><span class="glyphicon glyphicon-user"></span> 登陆</a></li>
+    </ul>
+
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<div class="row">
+    <ol class="breadcrumb">
+        <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+        <li class="active"><%= path %></li>
+    </ol>
+</div><!--/.row-->
+
+<!--<div class="row">-->
+    <!--<div class="col-lg-12">-->
+        <!--<h1 class="page-header"><%=title%></h1>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--/.row-->
+
+<div class="modal fade" id="myInfo" tabindex="-1" role="dialog" aria-labelledby="myInfoLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myInfoLabel">角色信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txt_search_name">用户名</label>
+                    <input type="text" name="myInfo_name" class="form-control" id="myInfo_name" placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_pass">角色类型</label>
+                    <input type="text" name="myInfo_type" class="form-control" id="myInfo_type" placeholder="角色类型">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_type">角色职位</label>
+                    <input type="text" name="myInfo_powerName" class="form-control" id="myInfo_powerName" placeholder="角色权限">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_type">角色权限</label>
+                    <input type="text" name="myInfo_power" class="form-control" id="myInfo_power" placeholder="角色权限">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_type">角色权限描述</label>
+                    <input type="text" name="myInfo_powerDes" class="form-control" id="myInfo_powerDes" placeholder="角色权限">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="hidden" name="txt_edit_id" class="form-control" id="txt_edit_id" placeholder="1">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_title">广告标题</label>
+                    <input type="text" name="txt_edit_title" class="form-control" id="txt_edit_title" placeholder="用钱就找钱多多">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_content">广告内容</label>
+                    <input type="text" name="txt_edit_content" class="form-control" id="txt_edit_content" placeholder="用钱就找钱多多啊钱多多">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_cssid">广告样式</label>
+                    <input type="text" name="txt_edit_cssid" class="form-control" id="txt_edit_cssid" placeholder="类型">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_pagename">跳转页面</label>
+                    <input type="text" name="txt_edit_pagename" class="form-control" id="txt_edit_pagename" placeholder="类型">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_cssid">图片地址</label>
+                        <input type="text" name="txt_edit_iconurl" id="txt_edit_iconurl" readonly="true" class="form-control" placeholder="需要先上传广告图片">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_cssid">背景地址</label>
+                        <input type="text" name="txt_edit_backimgurl" id="txt_edit_backimgurl" readonly="true" class="form-control" placeholder="需要先上传背景图片">
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <!--<div class="panel-heading">Add new media</div>-->
+                <div class="panel-body">
+                    <form id='editfile' method='post' action='/system/advertUpload' enctype='multipart/form-data'>
+                        <p>上传广告图片:</p>
+                        <label class="btn btn-default">
+                            <input id="photo" name="photo" type="file" hidden="">
+                        </label>
+                        <button type="button" id="upload" class="btn btn-default">图片地址Upload</button>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <!--<div class="panel-heading">Add new media</div>-->
+                <div class="panel-body">
+                    <form id='editfile2' method='post' action='/system/advertUpload' enctype='multipart/form-data'>
+                        <p>上传背景图片:</p>
+                        <label class="btn btn-default">
+                            <input id="photo" name="photo" type="file" hidden="">
+                        </label>
+                        <button type="button" id="upload2" class="btn btn-default">背景地址Upload</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--/.table-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">广告管理</div>
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <!--<div class="panel-heading">查询条件</div>-->
+                    <div class="panel-body">
+                        <form id="formSearch" class="form-horizontal">
+                            <div class="form-group" style="margin-top:15px">
+                                <label class="control-label col-sm-1" for="txt_search_nameL">广告标题</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="txt_search_name">
+                                </div>
+                                <label class="control-label col-sm-1" for="txt_search_typeL">广告内容</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="txt_search_type">
+                                </div>
+                                <div class="col-sm-4" style="text-align:left;">
+                                    <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">精确查询</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="toolbar" class="btn-group">
+                    <button id="btn_add" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                    </button>
+                    <button id="btn_edit" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                    </button>
+                    <button id="btn_delete" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                    </button>
+                </div>
+                <table id="tb_departments"></table>
+            </div>
+        </div>
+    </div>
+</div><!--/.row-->
+<script>
+
+    /** 图片上传 */
+    /*上传文件*/
+    $("#upload").click(function(){
+        //do something
+        var file = $("#photo")[0].files;
+        //上次修改时间
+        console.log("文件上次修改时间"+file[0].lastModifiedDate);
+        //名称
+        console.log("文件名称"+file[0].name);
+        //大小 字节
+        console.log("文件大小"+file[0].size);
+        //类型
+        console.log("文件类型"+file[0].type);
+        //创建FormData对象
+        var data = new FormData();
+        //为FormData对象添加数据
+        $.each(file, function(i, file) {
+            data.append('uploadFile', file);
+        });
+        $.ajax({
+            data: data,
+            url: '/advertUpload',
+            type:"post",
+            dataType: 'JSON',
+            contentType: false,    //不可缺
+            processData: false,    //不可缺
+            success: function(data){
+                if (data.errorCode == 0) {
+                    toastr.success('提交数据成功');
+                    $("#tb_departments").bootstrapTable('refresh');
+                    $("#txt_edit_iconurl").val(data.url);
+                }else{
+                    toastr.error(data.errMsg);
+                }
+            },
+            error: function(err){
+                console.log('error: ' + err);
+            }
+        });
+    });
+
+    /** 背景图片上传 */
+    /*上传文件*/
+    $("#upload2").click(function(){
+        //do something
+        var file = $("#photo")[0].files;
+        //上次修改时间
+        console.log("文件上次修改时间"+file[0].lastModifiedDate);
+        //名称
+        console.log("文件名称"+file[0].name);
+        //大小 字节
+        console.log("文件大小"+file[0].size);
+        //类型
+        console.log("文件类型"+file[0].type);
+        //创建FormData对象
+        var data = new FormData();
+        //为FormData对象添加数据
+        $.each(file, function(i, file) {
+            data.append('uploadFile', file);
+        });
+        $.ajax({
+            data: data,
+            url: '/advertUpload',
+            type:"post",
+            dataType: 'JSON',
+            contentType: false,    //不可缺
+            processData: false,    //不可缺
+            success: function(data){
+                if (data.errorCode == 0) {
+                    toastr.success('提交数据成功');
+                    $("#tb_departments").bootstrapTable('refresh');
+                    $("#txt_edit_backimgurl").val(data.url);
+                }else{
+                    toastr.error(data.errMsg);
+                }
+            },
+            error: function(err){
+                console.log('error: ' + err);
+            }
+        });
+    })
+
+    $(function () {
+
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+
+        //2.初始化Button的点击事件
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+
+    });
+
+
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            $('#tb_departments').bootstrapTable({
+                url: '/advertInfo',         //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 5,                       //每页的记录行数（*）
+                pageList: [5, 10, 15, 30],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                    checkbox: true
+                }, {
+                    field: 'id', align: 'center',  visible: false, title: '广告编号'
+                },{
+                    field: 'title',
+                    title: '广告标题'
+                }, {
+                    field: 'content',
+                    title: '广告内容'
+                }, {
+                    field: 'cssid',
+                    title: '广告样式'
+                }, {
+                    field: 'iconurl',
+                    title: '图片地址'
+                }, {
+                    field: 'backimgurl',
+                    title: '背景地址'
+                }, {
+                    field: 'pagename',
+                    title: '跳转页面'
+                }]
+            });
+        };
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                departmentname: $("#txt_search_name").val(),
+                type: $("#txt_search_type").val(),
+                search:params.search
+            };
+            return temp;
+        };
+
+        return oTableInit;
+    };
+
+
+    var ButtonInit = function () {
+        var oInit = new Object();
+        var postdata = {};
+
+        oInit.Init = function () {
+            $("#btn_add").click(function () {
+                $("#myModalLabel").text("新增");
+                $("#myModal").find(".form-control").val("");
+                $('#myModal').modal();
+
+                postdata.DEPARTMENT_ID = 1;
+            });
+
+            $("#btn_edit").click(function () {
+                var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+                if (arrselections.length > 1) {
+                    toastr.warning('只能选择一行进行编辑');
+
+                    return;
+                }
+                if (arrselections.length <= 0) {
+                    toastr.warning('请选择有效数据');
+
+                    return;
+                }
+                $("#myModalLabel").text("编辑");
+                $("#txt_edit_id").val(arrselections[0].id);
+                $("#txt_edit_title").val(arrselections[0].title);
+                $("#txt_edit_content").val(arrselections[0].content);
+                $("#txt_edit_cssid").val(arrselections[0].cssid);
+                $("#txt_edit_iconurl").val(arrselections[0].iconurl);
+                $("#txt_edit_backimgurl").val(arrselections[0].backimgurl);
+                $("#txt_edit_pagename").val(arrselections[0].pagename);
+                postdata.DEPARTMENT_ID = 2;
+                $('#myModal').modal();
+            });
+
+            $("#btn_delete").click(function () {
+                var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+                if (arrselections.length <= 0) {
+                    toastr.warning('请选择有效数据');
+                    return;
+                }
+
+                Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
+                    if (!e) {
+                        return;
+                    }
+                    $.ajax({
+                        type: "post",
+                        url: "deleteAdvert",
+                        data: { "advertInfo": JSON.stringify(arrselections) },
+                        success: function (data, status) {
+                            if (data.errorCode == 0) {
+                                toastr.success('提交数据成功');
+                                $("#tb_departments").bootstrapTable('refresh');
+                            }else{
+                                toastr.warning('删除数据失败');
+                            }
+                        },
+                        error: function () {
+                            toastr.error('Error');
+                        },
+                        complete: function () {
+
+                        }
+
+                    });
+                });
+            });
+
+            $("#btn_submit").click(function () {
+                postdata.id = $("#txt_edit_id").val();
+                postdata.title = $("#txt_edit_title").val();
+                postdata.content = $("#txt_edit_content").val();
+                postdata.cssid = $("#txt_edit_cssid").val();
+                postdata.iconurl = $("#txt_edit_iconurl").val();
+                postdata.backimgurl = $("#txt_edit_backimgurl").val();
+                postdata.pagename = $("#txt_edit_pagename").val();
+                if(!postdata.title || !postdata.content || !postdata.cssid || !postdata.iconurl || !postdata.backimgurl || !postdata.pagename){
+                    return toastr.error('信息填写不完整');
+                }
+                $.ajax({
+                    type: "post",
+                    url: "/addEditAdvert",
+                    data: { "advertInfo": JSON.stringify(postdata) },
+                    success: function (data) {
+                        if (data.errorCode == 0) {
+                            toastr.success('提交数据成功');
+                            $("#tb_departments").bootstrapTable('refresh');
+                        }else{
+                            toastr.warning('修改数据异常');
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Error');
+                    },
+                    complete: function () {
+
+                    }
+
+                });
+            });
+
+            $("#btn_query").click(function () {
+                $("#tb_departments").bootstrapTable('refresh');
+            });
+        };
+
+        return oInit;
+    };
+
+</script>
+<!--/.table-->
+<% include common/footer %><!-- 脚栏 -->
+</div>
+</body>
+</html>

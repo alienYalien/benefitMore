@@ -1,0 +1,8 @@
+/* @import "./../resources/assets/et-line-font/font.wxss"; */
+
+page{
+  background-color: #303238
+}
+.bgimg {
+  width: 100%;
+}

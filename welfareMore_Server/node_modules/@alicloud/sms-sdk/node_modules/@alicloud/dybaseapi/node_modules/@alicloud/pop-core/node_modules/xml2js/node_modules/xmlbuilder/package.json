@@ -1,0 +1,70 @@
+{
+  "name": "xmlbuilder",
+  "version": "9.0.7",
+  "keywords": [
+    "xml",
+    "xmlbuilder"
+  ],
+  "homepage": "http://github.com/oozcitak/xmlbuilder-js",
+  "description": "An XML builder for node.js",
+  "author": {
+    "name": "Ozgur Ozcitak",
+    "email": "oozcitak@gmail.com"
+  },
+  "contributors": [],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/oozcitak/xmlbuilder-js.git"
+  },
+  "bugs": {
+    "url": "http://github.com/oozcitak/xmlbuilder-js/issues"
+  },
+  "main": "./lib/index",
+  "engines": {
+    "node": ">=4.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "coffeescript": "1.*",
+    "mocha": "*",
+    "coffee-coverage": "2.*",
+    "istanbul": "*",
+    "coveralls": "*"
+  },
+  "scripts": {
+    "prepublish": "coffee -co lib src",
+    "postpublish": "rm -rf lib",
+    "test": "mocha \"test/**/*.coffee\" && istanbul report text lcov"
+  },
+  "gitHead": "797c9eb048feff7465d6f3c388278b68df7dcbf6",
+  "_id": "xmlbuilder@9.0.7",
+  "_shasum": "132ee63d2ec5565c557e20f4c22df9aca686b10d",
+  "_from": "xmlbuilder@>=9.0.1 <9.1.0",
+  "_npmVersion": "3.5.2",
+  "_nodeVersion": "6.11.4",
+  "_npmUser": {
+    "name": "oozcitak",
+    "email": "oozcitak@gmail.com"
+  },
+  "dist": {
+    "shasum": "132ee63d2ec5565c557e20f4c22df9aca686b10d",
+    "tarball": "http://registry.npmjs.org/xmlbuilder/-/xmlbuilder-9.0.7.tgz",
+    "fileCount": 27,
+    "unpackedSize": 104231
+  },
+  "maintainers": [
+    {
+      "name": "oozcitak",
+      "email": "oozcitak@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/xmlbuilder_9.0.7_1518169512084_0.3879471339524576"
+  },
+  "_hasShrinkwrap": false,
+  "_resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-9.0.7.tgz",
+  "readme": "ERROR: No README data found!"
+}

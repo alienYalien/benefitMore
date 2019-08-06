@@ -1,0 +1,376 @@
+<% include common/header %><!-- 顶栏 -->
+
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li><a href="/"><span class="glyphicon glyphicon-star-empty"></span> 待审核</a></li>
+        <li><a href="/checkPro"><span class="glyphicon glyphicon-star"></span> 已审核</a></li>
+        <li><a href="/salesman"><span class="glyphicon glyphicon-film"></span> 用户管理</a></li>
+        <li class="active"><a href="/advert"><span class="glyphicon glyphicon-th-large"></span> 广告管理</a></li>
+        <li><a href="/user"><span class="glyphicon glyphicon-th"></span> 后台用户管理</a></li>
+        <li ><a href="/power"><span class="glyphicon glyphicon-stats"></span> 权限管理</a></li>
+        <li><a href="/project"><span class="glyphicon glyphicon-pencil"></span> 创建公益活动</a></li>
+        <li><a href="/loginView"><span class="glyphicon glyphicon-user"></span> 登陆</a></li>
+    </ul>
+
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<div class="row">
+    <ol class="breadcrumb">
+        <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+        <li class="active"><%= path %></li>
+    </ol>
+</div><!--/.row-->
+
+<!--<div class="row">-->
+    <!--<div class="col-lg-12">-->
+        <!--<h1 class="page-header"><%=title%></h1>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--/.row-->
+
+<div class="modal fade" id="myInfo" tabindex="-1" role="dialog" aria-labelledby="myInfoLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myInfoLabel">角色信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txt_search_name">用户名</label>
+                    <input type="text" name="myInfo_name" class="form-control" id="myInfo_name" placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_pass">角色类型</label>
+                    <input type="text" name="myInfo_type" class="form-control" id="myInfo_type" placeholder="角色类型">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_type">角色职位</label>
+                    <input type="text" name="myInfo_powerName" class="form-control" id="myInfo_powerName" placeholder="角色权限">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_type">角色权限</label>
+                    <input type="text" name="myInfo_power" class="form-control" id="myInfo_power" placeholder="角色权限">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_type">角色权限描述</label>
+                    <input type="text" name="myInfo_powerDes" class="form-control" id="myInfo_powerDes" placeholder="角色权限">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">审核</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txt_edit_salesId">编号</label>
+                    <input type="text" name="txt_edit_salesId" class="form-control" readonly="true" id="txt_edit_salesId" placeholder="1">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_weChatId">微信id</label>
+                    <input type="text" name="txt_edit_weChatId" class="form-control" readonly="true" id="txt_edit_weChatId" placeholder="cs_123123">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_name">姓名/label>
+                    <input type="text" name="txt_edit_name" class="form-control" id="txt_edit_name" placeholder="张三">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_age">年龄</label>
+                    <input type="text" name="txt_edit_age" class="form-control" id="txt_edit_age" placeholder="23">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_phone">手机</label>
+                    <input type="text" name="txt_edit_phone" class="form-control" id="txt_edit_phone" placeholder="13412312381">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_email">邮箱</label>
+                    <input type="text" name="txt_edit_email" class="form-control" id="txt_edit_email" placeholder="123@qq.com">
+                </div>
+                <div class="form-group">
+                    <label for="txt_edit_major">专业</label>
+                    <input type="text" name="txt_edit_major" class="form-control" id="txt_edit_major" placeholder="互联网">
+                </div>
+                <!-- <div class="form-group">
+                    <label for="txt_edit_inWeChatId">介绍发起人微信id</label>
+                    <input type="text" name="txt_edit_inWeChatId" class="form-control" id="txt_edit_inWeChatId" placeholder="cs_234234">
+                </div> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--/.table-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">发起人管理</div>
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <!--<div class="panel-heading">查询条件</div>-->
+                    <div class="panel-body">
+                        <form id="formSearch" class="form-horizontal">
+                            <div class="form-group" style="margin-top:15px">
+                                <label class="control-label col-sm-1" for="txt_search_name">发起人名称</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="txt_search_name">
+                                </div>
+                                <label class="control-label col-sm-1" for="txt_search_type">发起人电话</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="txt_search_type">
+                                </div>
+                                <div class="col-sm-4" style="text-align:left;">
+                                    <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">精确查询</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="toolbar" class="btn-group">
+                    <!--<button id="btn_add" type="button" class="btn btn-default">-->
+                        <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>审核-->
+                    <!--</button>-->
+                    <button id="btn_edit" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                    </button>
+                    <button id="btn_delete" type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                    </button>
+                </div>
+                <table id="tb_departments"></table>
+            </div>
+        </div>
+    </div>
+</div><!--/.row-->
+<script>
+
+    $(function () {
+
+        //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+
+        //2.初始化Button的点击事件
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+
+    });
+
+
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            $('#tb_departments').bootstrapTable({
+                url: '/salesmanInfo',         //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 5,                       //每页的记录行数（*）
+                pageList: [5, 10, 15, 30],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                    checkbox: true
+                },{
+                    field: 'salesId',
+                    title: '发起人编号'
+                }, {
+                    field: 'weChatId',
+                    title: '微信id'
+                }, {
+                    field: 'name',
+                    title: '名称'
+                }, {
+                    field: 'age',
+                    title: '年龄'
+                }, {
+                    field: 'phone',
+                    title: '手机'
+                }, {
+                    field: 'email',
+                    title: '邮箱'
+                }, {
+                    field: 'major',
+                    title: '专业'
+
+                }, {
+                field: 'inWeChatId',
+                title: '介绍发起人微信id'
+            }]
+            });
+        };
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                departmentname: $("#txt_search_name").val(),
+                type: $("#txt_search_type").val(),
+                search:params.search
+            };
+            return temp;
+        };
+
+        return oTableInit;
+    };
+
+
+    var ButtonInit = function () {
+        var oInit = new Object();
+        var postdata = {};
+
+        oInit.Init = function () {
+            $("#btn_add").click(function () {
+                $("#myModalLabel").text("新增");
+                $("#myModal").find(".form-control").val("");
+                $('#myModal').modal();
+
+                postdata.DEPARTMENT_ID = 1;
+            });
+
+            $("#btn_edit").click(function () {
+                var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+                if (arrselections.length > 1) {
+                    toastr.warning('只能选择一行进行编辑');
+
+                    return;
+                }
+                if (arrselections.length <= 0) {
+                    toastr.warning('请选择有效数据');
+
+                    return;
+                }
+                $("#myModalLabel").text("编辑");
+                $("#txt_edit_salesId").val(arrselections[0].salesId);
+                $("#txt_edit_weChatId").val(arrselections[0].weChatId);
+                $("#txt_edit_name").val(arrselections[0].name);
+                $("#txt_edit_age").val(arrselections[0].age);
+                $("#txt_edit_phone").val(arrselections[0].phone);
+                $("#txt_edit_email").val(arrselections[0].email);
+                $("#txt_edit_major").val(arrselections[0].major);
+                $("#txt_edit_inWeChatId").val(arrselections[0].inWeChatId);
+                postdata.DEPARTMENT_ID = 2;
+                $('#myModal').modal();
+            });
+
+            $("#btn_delete").click(function () {
+                var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+                if (arrselections.length <= 0) {
+                    toastr.warning('请选择有效数据');
+                    return;
+                }
+
+                Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
+                    if (!e) {
+                        return;
+                    }
+                    $.ajax({
+                        type: "post",
+                        url: "deleteSalesman",
+                        data: { "salesInfo": JSON.stringify(arrselections) },
+                        success: function (data, status) {
+                            if (data.errorCode == 0) {
+                                toastr.success('提交数据成功');
+                                $("#tb_departments").bootstrapTable('refresh');
+                            }else{
+                                toastr.warning('删除数据失败');
+                            }
+                        },
+                        error: function () {
+                            toastr.error('Error');
+                        },
+                        complete: function () {
+
+                        }
+
+                    });
+                });
+            });
+
+            $("#btn_submit").click(function () {
+                postdata.salesId = $("#txt_edit_salesId").val();
+                postdata.weChatId = $("#txt_edit_weChatId").val();
+                postdata.name = $("#txt_edit_name").val();
+                postdata.age = $("#txt_edit_age").val();
+                postdata.phone = $("#txt_edit_phone").val();
+                postdata.email = $("#txt_edit_email").val();
+                postdata.major = $("#txt_edit_major").val();
+                postdata.inWeChatId = $("#txt_edit_inWeChatId").val();
+                if(!postdata.salesId || !postdata.weChatId || !postdata.name || !postdata.age || !postdata.phone || !postdata.email|| !postdata.major || !postdata.inWeChatId){
+                    return toastr.error('信息填写不完整');
+                }
+                $.ajax({
+                    type: "post",
+                    url: "/addEditSalesman",
+                    data: { "salesmanInfo": JSON.stringify(postdata) },
+                    success: function (data) {
+                        if (data.errorCode == 0) {
+                            toastr.success('提交数据成功');
+                            $("#tb_departments").bootstrapTable('refresh');
+                        }else{
+                            toastr.warning('请填写唯一的用户名信息');
+                        }
+                    },
+                    error: function () {
+                        toastr.error('Error');
+                    },
+                    complete: function () {
+                    }
+                });
+            });
+            $("#btn_query").click(function () {
+                $("#tb_departments").bootstrapTable('refresh');
+            });
+        };
+        return oInit;
+    };
+
+</script>
+<!--/.table-->
+<% include common/footer %><!-- 脚栏 -->
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/startup/startup",
+    "pages/loan/loan",
+    "pages/verifyphone/verifyphone",
+    "pages/createitem/createitem",
+    "pages/itemList/itemList",
+    "pages/itemInfo/itemInfo",
+    "pages/upload_img_demo/index",
+    "pages/me/me",
+    "pages/bc1/bc1",
+    "pages/aboutus/aboutus"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#303238",
+    "navigationBarTitleText": "益多多",
+    "navigationBarTextStyle": "white"
+  }
+}

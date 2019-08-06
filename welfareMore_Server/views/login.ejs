@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>benefitMore</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/datepicker3.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+        <div class="login-panel panel panel-default">
+            <div class="panel-heading">Login</div>
+            <div class="panel-body">
+                <form role="form" action="/backLogin" method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Username" name="username" type="text" autofocus="">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="验证码" name="yzm" type="text" placeholder="四位数字"/>
+                            <img id="yzmImg" width="120" height="50" src="/yzm/1" onclick="javascript:this.src='/yzm/'+Math.random()"/>
+                            <small id="emailHelp" class="form-text text-muted">看不清换一张</small>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">登 陆</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.col-->
+    <% if(typeof error != "undefined" && null != error){ %>
+    <div class="alert bg-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign"></span> <%=error%> <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+    </div>
+    <% } %>
+
+</div><!-- /.row -->
+</body>
+
+</html>

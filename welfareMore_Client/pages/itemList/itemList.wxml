@@ -1,0 +1,45 @@
+<view class="page">
+
+<view class = 'upside'>
+  <view class=" basictopic" >
+   {{topicContent}}
+  </view>
+
+  <image src = '../../images/line1.png' style='height:1px; margin-top:30rpx;'/>
+</view>
+
+<view class = 'downside'>
+  <scroll-view scroll-y style="height: 100%;" 
+                          bindscrolltoupper="upper" 
+                          bindscrolltolower="lower" 
+                          bindscroll="scroll"
+                          scroll-into-view="{{toView}}" 
+                          scroll-top="{{scrollTop}}">
+          <block wx:for="{{lists}}" wx:key="{{index}}" wx:for-item="item">
+              <view class='itemunit'>
+                <view class='h1' >
+                    <view bindtap = 'tapname'  id = '{{index}}' class='basicfont' >{{lists[index].itemName}}</view>
+                    <image bindtap='tapItem' 
+                          id="{{index}}"
+                          class='iconimages'
+                          src= "{{itemInfo.operaurl}}"
+                          style='margin-top:10rpx'
+                          mode='aspectFit'>
+                    </image>
+                </view>
+                <view class='h2' >
+                  <image  class='clockiconimages'src= "{{clockurl}}"  mode='aspectFit'></image>
+                  <view class='timefont' style='margin-top:8rpx'>{{lists[index].createTime}}</view>
+                </view>
+                <view class='h3' hidden='{{lists[index].state != 0}}'>
+                  <image bindtap = 'share' class='hideiconimages'src= "{{shareurl}}"  mode='aspectFit'></image>
+                  <image bindtap = 'wechat' class='hideiconimages'src= "{{talkurl}}"  mode='aspectFit'></image>
+                  <image bindtap = 'collect' class='hideiconimages'src= "{{collecturl}}"  mode='aspectFit'></image>
+                </view>
+                <image src = '../../images/line2.png' style='height:1px; margin-bottom:30rpx;margin-left:70rpx;'/>
+              </view>
+          </block>
+  </scroll-view>
+</view>
+
+</view>

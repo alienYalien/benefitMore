@@ -1,0 +1,8 @@
+/**index.wxss**/
+@import '../common/image_uploader/image_uploader.wxss';
+
+.page {
+    background-color:#303238; 
+  height: 100%;
+    overflow: hidden;
+}

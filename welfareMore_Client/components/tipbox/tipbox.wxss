@@ -1,0 +1,176 @@
+
+.tipcomp {
+  /* z-index: 20181011; */
+  z-index: 20161127;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 750rpx;
+  height: 100vh;
+  z-index: 20161127;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 65rpx;
+  background-color: white;
+  width: 620rpx;
+  border-radius: 9rpx;
+  z-index: 20170510;
+}
+
+.modal_upside {
+  height: 60%;
+  background-color: #303238;
+}
+
+
+.cancel-container {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 310rpx;
+  height: 95rpx;
+  border-top: 1rpx solid #dcdcdc;
+}
+
+.cancel-container:active {
+  background-color: #eee;
+}
+
+
+
+.confirm-container {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 310rpx;
+  height: 95rpx;
+  border-top: 1rpx solid #dcdcdc;
+  border-left: 1rpx solid #dcdcdc;
+}
+
+.confirm-container:active {
+  background-color: #eee;
+}
+
+.confirm {
+  position: absolute;
+  right: 120rpx;
+  bottom: 22rpx;
+  font-size: 36rpx;
+  color: #3CC51F;
+}
+
+@keyframes shadowDisplay {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.65;
+  }
+}
+
+@keyframes modalDisplay {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shadowHide {
+  0% {
+    opacity: 0.65;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes modalHide {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.modal_title {
+  margin-top: 40rpx;
+  width: 100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content: center;
+  /* text-align: center;
+  line-height: 300rpx; */
+  color: #fdfa00;
+  font-size: 50rpx;
+  font-weight: 700;
+}
+
+.modal_content {
+  margin-top: 35rpx;
+  width: 100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content: center;
+  /* text-align: center;
+  line-height: 300rpx; */
+  color: #d9d9d9;
+  font-size: 20rpx;
+  font-family: "微软雅黑";
+}
+
+.confirmbtn{
+  margin-top: 8%;
+  margin-left: 40rpx;
+  background-color: #2672cb;
+  width: 40%;
+  height: 60rpx;
+  color: #ffffff;
+  font-size: 20rpx;
+  font-family: "微软雅黑";
+  font-weight: 700;
+  text-align: center;
+   line-height: 60rpx;
+   border-radius: 7rpx;
+}
+
+
+.cancelbtn{
+  margin-top: 8%;
+  margin-left: 40rpx;
+  background-color: #303238;
+  width: 40%;
+  height: 60rpx;
+  color: #ffffff;
+  font-size: 20rpx;
+  font-family: "微软雅黑";
+  font-weight: 700;
+  text-align: center;
+   line-height: 60rpx;
+   border-radius: 7rpx;
+}
+
+
+
+
+.btns {
+  display: flex;
+}

@@ -1,0 +1,24 @@
+<view class='tipcomp'>
+  <view class='shadow' style='opacity:{{ shadowOpacity }};animation:{{ shadowAnimation }} 0.35s;' />
+  <view class='modal' 
+  style='Bottom:{{ modalBottom }}rpx;height:{{ modalHeight }}rpx;opacity:{{ modalOpacity }};animation:{{    modalAnimation }} 0.35s;'>
+      <view class='modal_upside'>
+          <view class='modal_title'>{{title}}</view>
+          <view class='modal_content'>{{content}}</view>
+          
+      </view>
+
+
+    <view class = 'btns'>
+     <view class='confirmbtn' catchtap='onConfirmlTap'>
+      confirm
+    </view>
+    <view class='cancelbtn' catchtap='onCancelTap'>
+      cancel
+    </view>
+    </view>
+   
+  </view>
+
+
+</view>

@@ -1,0 +1,51 @@
+<template name="image_uploader" data="{{...img1}}">
+  <view>
+    
+
+    <!-- 返回按钮 -->
+    <!-- <view class='btn_confirmcpminfo'>
+      <view>
+        <image class="backimg" src='../../images/back.png' id = '0' bindtap='{{backAction}}' mode='aspectFill'></image>
+      </view>
+    </view> -->
+    <!-- 返回按钮 -->
+
+    <!-- 标题 -->
+    <view class='topicv1'>
+     <view class="commontopic localtopic">Upload Images</view>
+    </view>
+    <!-- 标题 -->
+
+       
+    <!-- 图片展示位 -->
+    <view class='images'>
+      <view class="flex-wrp" style="flex-direction:row; justify-content:space-around">
+        <block wx:for="{{defaultimgsv1}}" wx:key="{{index}}" wx:for-item="item1">
+         <button  plain = 'true' id = "{{index}}" bindlongpress="{{_deleteImage}}" bindtap="{{_chooseImage}}">
+          <image class="defaultimg" src="{{item1.img}}"></image>
+        </button>    
+        </block>
+      </view>
+    </view>
+    <!-- 图片展示位 -->
+
+    <button class="bordernone"  bindtap='{{backAction}}'>
+      return
+    </button> 
+  </view>
+</template>
+
+
+
+  <!-- <button class="bordernone" bindtap="{{_chooseImage}}">
+        upload
+      </button>  -->
+
+
+         <!-- <view class="weui-uploader__files">
+<block wx:for="{{uploadedImagesPaths}}" wx:for-item="image" wx:key="*this">
+<view class="weui-uploader__file">
+<image class="weui-uploader__img" src="{{image}}" data-src="{{image}}" bindtap="{{_previewImage}}"></image>
+</view>
+</block>
+</view> -->

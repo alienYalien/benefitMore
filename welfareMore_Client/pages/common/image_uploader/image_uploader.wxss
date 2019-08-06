@@ -1,0 +1,50 @@
+@import '../lib/weui.wxss';
+@import '../lib/common.wxss';
+
+
+.btn_confirmcpminfo {
+  width: 98%;
+}
+
+.bordernone {
+  margin-top: 15%;
+  background-color: #00fcd0;
+  width: 96%;
+  height: 60rpx;
+  color: #595959;
+  font-size: 30rpx;
+  font-weight: 700;
+  line-height: 60rpx;
+}
+
+.backimg {
+  width:32px;
+  height: 32px;
+
+}
+
+.flex-wrp {
+flex-flow: row wrap;
+}
+
+
+
+.topicv1 {
+  margin-left: 10%;
+}
+
+.localtopic {
+  color: #00FCD0;
+  font-size: 80rpx;
+  text-decoration: underline;
+}
+
+.images {
+  margin-top: 25%;
+}
+
+.defaultimg {
+  width: 81px;
+  height: 81px;
+  
+}

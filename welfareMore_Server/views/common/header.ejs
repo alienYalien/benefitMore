@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/datepicker3.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet">
+    <link href="css/toastr.css" rel="stylesheet">
+    <link href="css/toastr.min.css" rel="stylesheet">
+
+
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/chart.min.js"></script>
+    <script src="js/chart-data.js"></script>
+    <script src="js/bootstrap-table.js"></script>
+    <script src="js/easypiechart.js"></script>
+    <script src="js/easypiechart-data.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+  <script src="js/toastr.min.js"></script>
+    <script>
+        /** 确认框组件 */
+        (function ($) {
+            window.Ewin = function () {
+                var html = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
+                        '<div class="modal-dialog modal-sm">' +
+                        '<div class="modal-content">' +
+                        '<div class="modal-header">' +
+                        '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' +
+                        '<h4 class="modal-title" id="modalLabel">[Title]</h4>' +
+                        '</div>' +
+                        '<div class="modal-body">' +
+                        '<p>[Message]</p>' +
+                        '</div>' +
+                        '<div class="modal-footer">' +
+                        '<button type="button" class="btn btn-default cancel" data-dismiss="modal">[BtnCancel]</button>' +
+                        '<button type="button" class="btn btn-primary ok" data-dismiss="modal">[BtnOk]</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+
+
+                var dialogdHtml = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
+                        '<div class="modal-dialog">' +
+                        '<div class="modal-content">' +
+                        '<div class="modal-header">' +
+                        '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>' +
+                        '<h4 class="modal-title" id="modalLabel">[Title]</h4>' +
+                        '</div>' +
+                        '<div class="modal-body">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+                var reg = new RegExp("\\[([^\\[\\]]*?)\\]", 'igm');
+                var generateId = function () {
+                    var date = new Date();
+                    return 'mdl' + date.valueOf();
+                }
+                var init = function (options) {
+                    options = $.extend({}, {
+                        title: "操作提示",
+                        message: "提示内容",
+                        btnok: "确定",
+                        btncl: "取消",
+                        width: 200,
+                        auto: false
+                    }, options || {});
+                    var modalId = generateId();
+                    var content = html.replace(reg, function (node, key) {
+                        return {
+                            Id: modalId,
+                            Title: options.title,
+                            Message: options.message,
+                            BtnOk: options.btnok,
+                            BtnCancel: options.btncl
+                        }[key];
+                    });
+                    $('body').append(content);
+                    $('#' + modalId).modal({
+                        width: options.width,
+                        backdrop: 'static'
+                    });
+                    $('#' + modalId).on('hide.bs.modal', function (e) {
+                        $('body').find('#' + modalId).remove();
+                    });
+                    return modalId;
+                }
+
+                return {
+                    alert: function (options) {
+                        if (typeof options == 'string') {
+                            options = {
+                                message: options
+                            };
+                        }
+                        var id = init(options);
+                        var modal = $('#' + id);
+                        modal.find('.ok').removeClass('btn-success').addClass('btn-primary');
+                        modal.find('.cancel').hide();
+
+                        return {
+                            id: id,
+                            on: function (callback) {
+                                if (callback && callback instanceof Function) {
+                                    modal.find('.ok').click(function () { callback(true); });
+                                }
+                            },
+                            hide: function (callback) {
+                                if (callback && callback instanceof Function) {
+                                    modal.on('hide.bs.modal', function (e) {
+                                        callback(e);
+                                    });
+                                }
+                            }
+                        };
+                    },
+                    confirm: function (options) {
+                        var id = init(options);
+                        var modal = $('#' + id);
+                        modal.find('.ok').removeClass('btn-primary').addClass('btn-success');
+                        modal.find('.cancel').show();
+                        return {
+                            id: id,
+                            on: function (callback) {
+                                if (callback && callback instanceof Function) {
+                                    modal.find('.ok').click(function () { callback(true); });
+                                    modal.find('.cancel').click(function () { callback(false); });
+                                }
+                            },
+                            hide: function (callback) {
+                                if (callback && callback instanceof Function) {
+                                    modal.on('hide.bs.modal', function (e) {
+                                        callback(e);
+                                    });
+                                }
+                            }
+                        };
+                    },
+                    dialog: function (options) {
+                        options = $.extend({}, {
+                            title: 'title',
+                            url: '',
+                            width: 800,
+                            height: 550,
+                            onReady: function () { },
+                            onShown: function (e) { }
+                        }, options || {});
+                        var modalId = generateId();
+
+                        var content = dialogdHtml.replace(reg, function (node, key) {
+                            return {
+                                Id: modalId,
+                                Title: options.title
+                            }[key];
+                        });
+                        $('body').append(content);
+                        var target = $('#' + modalId);
+                        target.find('.modal-body').load(options.url);
+                        if (options.onReady())
+                            options.onReady.call(target);
+                        target.modal();
+                        target.on('shown.bs.modal', function (e) {
+                            if (options.onReady(e))
+                                options.onReady.call(target, e);
+                        });
+                        target.on('hide.bs.modal', function (e) {
+                            $('body').find(target).remove();
+                        });
+                    }
+                }
+            }();
+        })(jQuery);
+        /** 确认框组件 结束 */
+
+        $('#calendar').datepicker({
+        });
+
+        !function ($) {
+            $(document).on("click","ul.nav li.parent > a > span.icon", function(){
+                $(this).find('em:first').toggleClass("glyphicon-minus");
+            });
+            $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+        }(window.jQuery);
+
+        $(window).on('resize', function () {
+            if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+        })
+        $(window).on('resize', function () {
+            if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+        })
+
+        /** error 处理 */
+        function checkError(){
+            var err = $('#error').val();
+            if(err != "" && !!err){
+                toastr.error(err);
+            }
+        }
+
+        function showMy(){
+
+            $.ajax({
+                type: "get",
+                url: "/myInfo",
+                success: function (data, status) {
+                    if (status == "success") {
+                        $("#myInfoLabel").text("当前管理员信息");
+                        $("#myInfo_name").val(data.username);
+                        $("#myInfo_type").val(data.type);
+                        $("#myInfo_powerName").val(data.name);
+                        $("#myInfo_power").val(data.power);
+                        $("#myInfo_powerDes").val(data.des);
+                        $('#myInfo').modal();
+                    }
+                },
+                error: function () {
+                    toastr.error('个人信息出现错误');
+                },
+                complete: function () {
+                }
+            });
+        }
+
+    </script>
+
+</head>
+
+<body onload="checkError()">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span>benefitMore</span> System</a>
+            <ul class="user-menu">
+                <li class="dropdown pull-right">
+                    <% if(typeof user == "undefined" || null == user){ %>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 未登陆 <span class="caret"></span></a>
+                    <%
+                    }else{
+                    %>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <%=user.username%> <span class="caret"></span></a>
+                    <%}%>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:showMy()" onclick=""><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+                        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div><!-- /.container-fluid -->
+
+    <% if(typeof error != "undefined" && null != error){ %>
+    <input type="hidden" id="error" value="<%=error%>" />
+    <% } %>
+</nav>

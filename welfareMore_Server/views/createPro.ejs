@@ -1,0 +1,792 @@
+<% include common/header %><!-- 顶栏 -->
+
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li><a href="/"><span class="glyphicon glyphicon-star-empty"></span> 待审核</a></li>
+        <li><a href="/checkPro"><span class="glyphicon glyphicon-star"></span> 已审核</a></li>
+        <li><a href="/salesman"><span class="glyphicon glyphicon-film"></span> 用户管理</a></li>
+        <li class="active"><a href="/advert"><span class="glyphicon glyphicon-th-large"></span> 广告管理</a></li>
+        <li><a href="/user"><span class="glyphicon glyphicon-th"></span> 后台用户管理</a></li>
+        <li ><a href="/power"><span class="glyphicon glyphicon-stats"></span> 权限管理</a></li>
+        <li><a href="/project"><span class="glyphicon glyphicon-pencil"></span> 创建公益活动</a></li>
+        <li><a href="/loginView"><span class="glyphicon glyphicon-user"></span> 登陆</a></li>
+    </ul>
+
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+<div class="row">
+    <ol class="breadcrumb">
+        <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+        <li class="active"><%= path %></li>
+    </ol>
+</div><!--/.row-->
+
+<!--<div class="row">-->
+    <!--<div class="col-lg-12">-->
+        <!--<h1 class="page-header"><%=title%></h1>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--/.row-->
+
+<div class="modal fade" id="myInfo" tabindex="-1" role="dialog" aria-labelledby="myInfoLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myInfoLabel">角色信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txt_search_name">用户名</label>
+                    <input type="text" name="myInfo_name" class="form-control" id="myInfo_name" placeholder="用户名">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_pass">角色类型</label>
+                    <input type="text" name="myInfo_type" class="form-control" id="myInfo_type" placeholder="角色类型">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_type">角色职位</label>
+                    <input type="text" name="myInfo_powerName" class="form-control" id="myInfo_powerName" placeholder="角色权限">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_type">角色权限</label>
+                    <input type="text" name="myInfo_power" class="form-control" id="myInfo_power" placeholder="角色权限">
+                </div>
+                <div class="form-group">
+                    <label for="txt_search_type">角色权限描述</label>
+                    <input type="text" name="myInfo_powerDes" class="form-control" id="myInfo_powerDes" placeholder="角色权限">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">创建活动</div>
+        <div class="panel-body">
+            <form class="form-horizontal row-border" id="proFrom" action="createPro" method="post">
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-4 col-xs-12">
+                            <label class="col-md-4 control-label">发起人名称</label>
+                            <div class="col-xs-8">
+                                <input type="text" id="legalManName" name="legalManName" class="form-control" placeholder="张XX">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-4 col-xs-12">
+                            <label class="col-md-4 control-label">发起人手机号</label>
+                            <div class="col-xs-8">
+                                <input type="text" id="legalManPhone" name="legalManPhone" class="form-control" placeholder="134XXXXXXXX">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">发起组织名称</label>
+                    <div class="col-md-10">
+                        <input type="text" id="cmpName" name="cmpName" class="form-control" placeholder="唐山XX公益组织">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">活动名称</label>
+                    <div class="col-md-10">
+                        <input type="text" id="itemName" name="itemName" class="form-control" placeholder="XXX活动">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">活动简介</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" id="itemDesc" name="itemDesc" rows="4" cols="5"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-4 col-xs-12">
+                        <label class="col-md-4 control-label">活动领域</label>
+                        <div class="col-xs-8">
+                            <!--<input type="text" name="itemArea" class="form-control" placeholder="1 (互联网)">-->
+                            <select name="itemArea" class="form-control">
+                                <option value='0' selected='selected'>扶贫济困</option>
+                                <option value='1'>医疗卫生</option>
+                                <option value='2'>弱势群体</option>
+                                <option value='3'>动物保护</option>
+                                <option value='4'>生态环境</option>
+                                <option value='5'>知识传播</option>
+                                <option value='6'>关爱生命</option>
+                                <option value='7'>公共福利</option>
+                                <option value='8'>空气保护</option>
+                                <option value='9'植被保护</option>
+                                <option value='10'>毒品教育</option>
+                                <option value='11'>儿童成长</option>
+                                <option value='12'>公益创业</option>
+                                <option value='13'>其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-3 control-label">是否保密</label>
+                        <div class="col-md-6">
+                            <div class="col-xs-8">
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="itemAreaShow" value="1" checked="true">保密
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="itemAreaShow" value="0">公开
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-4 col-xs-14">
+                        <label class="col-md-4 control-label">活动形式</label>
+                        <div class="col-xs-8">
+                            <!--<input type="text" name="itemMoney" class="form-control" placeholder="100">-->
+                            <select name="itemMoney" class="form-control">
+                                <option value='0' selected='selected'>培训</option>
+                                <option value='1'>户外活动、探访</option>
+                                <option value='2'>晚会、公益演出</option>
+                                <option value='3'>沙龙、讲座、论坛</option>
+                                <option value='4'>爱心捐募</option>
+                                <option value='5'>公益广告、微电影</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-3 control-label">是否保密</label>
+                        <div class="col-md-6">
+                            <div class="col-xs-8">
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="itemMoneyShow" value="1" checked="true">保密
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="itemMoneyShow" value="0">公开
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-4 col-xs-14">
+                        <label class="col-md-4 control-label">活动所在地区</label>
+                        <div class="col-xs-8">
+                            <input type="text" name="itemPlace" class="form-control" placeholder="1">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-3 control-label">是否保密</label>
+                        <div class="col-md-6">
+                            <div class="col-xs-8">
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="itemPlaceShow" value="1" checked="true">保密
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="itemPlaceShow" value="0">公开
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-4 col-xs-14">
+                        <label class="col-md-4 control-label">一级发起人</label>
+                        <div class="col-xs-8">
+                            <input type="text" id="businessv1" name="businessv1" class="form-control" placeholder="张三">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-3 control-label">是否保密</label>
+                        <div class="col-md-6">
+                            <div class="col-xs-8">
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="businessv1Show" value="1" checked="true">保密
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="businessv1Show" value="0">公开
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-4 col-xs-14">
+                        <label class="col-md-4 control-label">二级发起人</label>
+                        <div class="col-xs-8">
+                            <input type="text" id="businessv2" name="businessv2" class="form-control" placeholder="李四">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-3 control-label">是否保密</label>
+                        <div class="col-md-6">
+                            <div class="col-xs-8">
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="businessv2Show" value="1" checked="true">保密
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="businessv2Show" value="0">公开
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-4 col-xs-14">
+                        <label class="col-md-4 control-label">活动类型</label>
+                        <div class="col-xs-8">
+                            <select name="itemType" class="form-control">
+                                <option value='0' selected='selected'>学校组织</option>
+                                <option value='1'>个人</option>
+                                <option value='2'>社区组织</option>
+                                <option value='3'>俱乐部</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <label class="col-md-3 control-label">是否保密</label>
+                        <div class="col-md-6">
+                            <div class="col-xs-8">
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="itemTypeShow" value="1" checked="true">保密
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="itemTypeShow" value="0">公开
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">活动图片1</label>
+                    <div class="col-md-10">
+                        <input type="text" name="itemImg" id="itemImg" readonly="true" class="form-control" placeholder="需要先上传活动图片">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">活动图片2</label>
+                    <div class="col-md-10">
+                        <input type="text" name="itemImg2" id="itemImg2" readonly="true" class="form-control" placeholder="需要先上传活动图片">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">活动图片3</label>
+                    <div class="col-md-10">
+                        <input type="text" name="itemImg3" id="itemImg3" readonly="true" class="form-control" placeholder="需要先上传活动图片">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">活动图片4</label>
+                    <div class="col-md-10">
+                        <input type="text" name="itemImg4" id="itemImg4" readonly="true" class="form-control" placeholder="需要先上传活动图片">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">活动图片5</label>
+                    <div class="col-md-10">
+                        <input type="text" name="itemImg5" id="itemImg5" readonly="true" class="form-control" placeholder="需要先上传活动图片">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">活动图片6</label>
+                    <div class="col-md-10">
+                        <input type="text" name="itemImg6" id="itemImg6" readonly="true" class="form-control" placeholder="需要先上传活动图片">
+                    </div>
+                </div>
+
+                <div class="col-sm-offset-5">
+                    <button type="button" id="proBut" class="btn btn-primary btn-lg" title="">提 交</button>
+                </div>
+
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-2 control-label">Column sizing</label>-->
+                    <!--<div class="col-md-10">-->
+                        <!--<div class="col-xs-3">-->
+                                <!--<label class="checkbox-inline">-->
+                                    <!--<input type="radio" id="inlineCheckbox1" value="option1" checked="">1-->
+                                <!--</label>-->
+                                <!--<label class="checkbox-inline">-->
+                                    <!--<input type="radio" id="inlineCheckbox2" value="option2">2-->
+                                <!--</label>-->
+                                <!--<label class="checkbox-inline">-->
+                                    <!--<input type="radio" id="inlineCheckbox3" value="option3" disabled="">3-->
+                                <!--</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                 <!--</div>-->
+
+
+                <!--<div class="form-group has-success">-->
+                    <!--<label class="col-md-2 control-label">Input success</label>-->
+                    <!--<div class="col-md-10">-->
+                        <!--<input type="text" class="form-control" id="inputSuccess" placeholder="Input Success"><i class="icon-pencil input-icon success"></i></div>-->
+                    <!--</div>-->
+                <!--<div class="form-group has-warning">-->
+                    <!--<label class="col-md-2 control-label">Input warning</label>-->
+                    <!--<div class="col-md-10">-->
+                        <!--<input type="text" class="form-control" id="inputWarning" placeholder="Input Warning"><i class="icon-pencil input-icon warning"></i></div>-->
+                <!--</div>-->
+                <!--<div class="form-group has-error">-->
+                    <!--<label class="col-md-2 control-label">Input error</label>-->
+                    <!--<div class="col-md-10">-->
+                        <!--<input type="text" class="form-control" id="inputError" placeholder="Input Error"><i class="icon-pencil input-icon error"></i></div>-->
+                <!--</div>-->
+
+                <!--<div class="row">-->
+                    <!--<div class="col-md-6 col-sm-4 col-xs-12">-->
+                        <!--<label class="col-md-4 control-label">Input error</label>-->
+                        <!--<div class="col-xs-8">-->
+                            <!--<input type="text" class="form-control" placeholder=".col-xs-5">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+                        <!--<label class="col-md-3 control-label">Column sizing</label>-->
+                        <!--<div class="col-md-6">-->
+                            <!--<div class="col-xs-8">-->
+                                <!--<label class="checkbox-inline">-->
+                                    <!--<input type="radio" id="inlineCheckbox1" value="option1" checked="">1-->
+                                <!--</label>-->
+                                <!--<label class="checkbox-inline">-->
+                                    <!--<input type="radio" id="inlineCheckbox2" value="option2">2-->
+                                <!--</label>-->
+                                <!--<label class="checkbox-inline">-->
+                                    <!--<input type="radio" id="inlineCheckbox3" value="option3" disabled="">3-->
+                                <!--</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+                <!--<div class="row">-->
+                    <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+
+                        <!--<div class="panel panel-default">-->
+
+                            <!--<div class="panel-heading clearfix">Check boxes</div>-->
+                            <!--<div class="panel-body">-->
+                                <!--<label class="checkbox-inline">-->
+                                    <!--<input type="radio" id="inlineCheckbox1" value="option1" checked="">1-->
+                                <!--</label>-->
+                                <!--<label class="checkbox-inline">-->
+                                    <!--<input type="radio" id="inlineCheckbox2" value="option2">2-->
+                                <!--</label>-->
+                                <!--<label class="checkbox-inline">-->
+                                    <!--<input type="radio" id="inlineCheckbox3" value="option3" disabled="">3-->
+                                <!--</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6 col-sm-6 col-xs-12">-->
+
+                        <!--<div class="panel panel-default">-->
+
+                            <!--<div class="panel-heading clearfix">Radio buttons</div>-->
+                            <!--<div class="panel-body">-->
+                                <!--<label class="radio-inline">-->
+                                    <!--<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">1-->
+                                <!--</label>-->
+                                <!--<label class="radio-inline">-->
+                                    <!--<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">2-->
+                                <!--</label>-->
+                                <!--<label class="radio-inline">-->
+                                    <!--<input type="radio" name="optionsRadios" id="optionsRadios3" value="option2" disabled="">3-->
+                                <!--</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" >
+    <!--<div class="panel-heading">Add new media</div>-->
+    <div class="panel-body">
+        <form id='editfile' method='post' action='/system/upload' enctype='multipart/form-data'>
+            <p>Upload 活动图片1:</p>
+            <label class="btn btn-default">
+                <input id="photo" name="photo" type="file" ><!-- 多选支持 multiple="multiple"-->
+            </label>
+            <button type="button" id="upload" class="btn btn-default">Upload</button>
+        </form>
+    </div>
+
+    <div class="panel-body">
+        <form id='editfile' method='post' action='/system/upload' enctype='multipart/form-data'>
+            <p>Upload 活动图片2:</p>
+            <label class="btn btn-default">
+                <input id="photo2" name="photo" type="file" hidden="">
+            </label>
+            <button type="button" id="upload2" class="btn btn-default">Upload</button>
+        </form>
+    </div>
+
+    <div class="panel-body">
+        <form id='editfile' method='post' action='/system/upload' enctype='multipart/form-data'>
+            <p>Upload 活动图片3:</p>
+            <label class="btn btn-default">
+                <input id="photo3" name="photo" type="file" hidden="">
+            </label>
+            <button type="button" id="upload3" class="btn btn-default">Upload</button>
+        </form>
+    </div>
+
+    <div class="panel-body">
+        <form id='editfile' method='post' action='/system/upload' enctype='multipart/form-data'>
+            <p>Upload 活动图片4:</p>
+            <label class="btn btn-default">
+                <input id="photo4" name="photo" type="file" hidden="">
+            </label>
+            <button type="button" id="upload4" class="btn btn-default">Upload</button>
+        </form>
+    </div>
+
+    <div class="panel-body">
+        <form id='editfile' method='post' action='/system/upload' enctype='multipart/form-data'>
+            <p>Upload 活动图片5:</p>
+            <label class="btn btn-default">
+                <input id="photo5" name="photo" type="file" hidden="">
+            </label>
+            <button type="button" id="upload5" class="btn btn-default">Upload</button>
+        </form>
+    </div>
+
+    <div class="panel-body">
+        <form id='editfile' method='post' action='/system/upload' enctype='multipart/form-data'>
+            <p>Upload 活动图片6:</p>
+            <label class="btn btn-default">
+                <input id="photo6" name="photo" type="file" hidden="">
+            </label>
+            <button type="button" id="upload6" class="btn btn-default">Upload</button>
+        </form>
+    </div>
+</div>
+
+<script>
+
+        /** 提交验证 */
+        $("#proBut").click(function(){
+            var name = $("#legalManName").val();
+            var phone = $("#legalManPhone").val();
+            var cmpName = $("#cmpName").val();
+            var itemName = $("#itemName").val();
+            var itemPlace = $("#itemPlace").val();
+            var itemDesc = $("#itemDesc").val();
+            var businessv1 =  $("#businessv1").val();
+            var businessv2 =  $("#businessv2").val();
+            if(name=="" || phone=="" || cmpName=="" || itemName==""|| businessv1=="" || businessv2=="" || itemPlace=="" || itemDesc==""){
+                toastr.error("数据填写不完整 或 格式不符合规范");
+                return false
+            }else if(itemDesc.length>500){
+                toastr.error("活动描述超长");
+            }else{
+                $("#proFrom").submit();
+            }
+        });
+
+        /** 图片上传 */
+        /*上传文件*/
+        $("#upload").click(function(){
+            //do something
+            var file = $("#photo")[0].files;
+            //上次修改时间
+            console.log("文件上次修改时间"+file[0].lastModifiedDate);
+            //名称
+            console.log("文件名称"+file[0].name);
+            //大小 字节
+            console.log("文件大小"+file[0].size);
+            //类型
+            console.log("文件类型"+file[0].type);
+            //创建FormData对象
+            var data = new FormData();
+            //为FormData对象添加数据
+            $.each(file, function(i, file) {
+                data.append('uploadFile', file);
+            });
+            $.ajax({
+                data: data,
+                url: '/upload',
+                type:"post",
+                dataType: 'JSON',
+                contentType: false,    //不可缺
+                processData: false,    //不可缺
+                success: function(data){
+                    if (data.errorCode == 0) {
+                        toastr.success('提交数据成功');
+                        $("#tb_departments").bootstrapTable('refresh');
+                        $("#itemImg").val(data.url);
+                    }else{
+                        toastr.error(data.errMsg);
+                    }
+                },
+                error: function(err){
+                    console.log('error: ' + err);
+                }
+            });
+        });
+
+        $("#upload2").click(function(){
+            //do something
+            var file = $("#photo2")[0].files;
+            //上次修改时间
+            console.log("文件上次修改时间"+file[0].lastModifiedDate);
+            //名称
+            console.log("文件名称"+file[0].name);
+            //大小 字节
+            console.log("文件大小"+file[0].size);
+            //类型
+            console.log("文件类型"+file[0].type);
+            //创建FormData对象
+            var data = new FormData();
+            //为FormData对象添加数据
+            $.each(file, function(i, file) {
+                data.append('uploadFile', file);
+            });
+            $.ajax({
+                data: data,
+                url: '/upload',
+                type:"post",
+                dataType: 'JSON',
+                contentType: false,    //不可缺
+                processData: false,    //不可缺
+                success: function(data){
+                    if (data.errorCode == 0) {
+                        toastr.success('提交数据成功');
+                        $("#tb_departments").bootstrapTable('refresh');
+                        $("#itemImg2").val(data.url);
+                    }else{
+                        toastr.error(data.errMsg);
+                    }
+                },
+                error: function(err){
+                    console.log('error: ' + err);
+                }
+            });
+        });
+
+        $("#upload3").click(function(){
+            //do something
+            var file = $("#photo3")[0].files;
+            //上次修改时间
+            console.log("文件上次修改时间"+file[0].lastModifiedDate);
+            //名称
+            console.log("文件名称"+file[0].name);
+            //大小 字节
+            console.log("文件大小"+file[0].size);
+            //类型
+            console.log("文件类型"+file[0].type);
+            //创建FormData对象
+            var data = new FormData();
+            //为FormData对象添加数据
+            $.each(file, function(i, file) {
+                data.append('uploadFile', file);
+            });
+            $.ajax({
+                data: data,
+                url: '/upload',
+                type:"post",
+                dataType: 'JSON',
+                contentType: false,    //不可缺
+                processData: false,    //不可缺
+                success: function(data){
+                    if (data.errorCode == 0) {
+                        toastr.success('提交数据成功');
+                        $("#tb_departments").bootstrapTable('refresh');
+                        $("#itemImg3").val(data.url);
+                    }else{
+                        toastr.error(data.errMsg);
+                    }
+                },
+                error: function(err){
+                    console.log('error: ' + err);
+                }
+            });
+        });
+
+        $("#upload4").click(function(){
+            //do something
+            var file = $("#photo4")[0].files;
+            //上次修改时间
+            console.log("文件上次修改时间"+file[0].lastModifiedDate);
+            //名称
+            console.log("文件名称"+file[0].name);
+            //大小 字节
+            console.log("文件大小"+file[0].size);
+            //类型
+            console.log("文件类型"+file[0].type);
+            //创建FormData对象
+            var data = new FormData();
+            //为FormData对象添加数据
+            $.each(file, function(i, file) {
+                data.append('uploadFile', file);
+            });
+            $.ajax({
+                data: data,
+                url: '/upload',
+                type:"post",
+                dataType: 'JSON',
+                contentType: false,    //不可缺
+                processData: false,    //不可缺
+                success: function(data){
+                    if (data.errorCode == 0) {
+                        toastr.success('提交数据成功');
+                        $("#tb_departments").bootstrapTable('refresh');
+                        $("#itemImg4").val(data.url);
+                    }else{
+                        toastr.error(data.errMsg);
+                    }
+                },
+                error: function(err){
+                    console.log('error: ' + err);
+                }
+            });
+        });
+
+        $("#upload5").click(function(){
+            //do something
+            var file = $("#photo5")[0].files;
+            //上次修改时间
+            console.log("文件上次修改时间"+file[0].lastModifiedDate);
+            //名称
+            console.log("文件名称"+file[0].name);
+            //大小 字节
+            console.log("文件大小"+file[0].size);
+            //类型
+            console.log("文件类型"+file[0].type);
+            //创建FormData对象
+            var data = new FormData();
+            //为FormData对象添加数据
+            $.each(file, function(i, file) {
+                data.append('uploadFile', file);
+            });
+            $.ajax({
+                data: data,
+                url: '/upload',
+                type:"post",
+                dataType: 'JSON',
+                contentType: false,    //不可缺
+                processData: false,    //不可缺
+                success: function(data){
+                    if (data.errorCode == 0) {
+                        toastr.success('提交数据成功');
+                        $("#tb_departments").bootstrapTable('refresh');
+                        $("#itemImg5").val(data.url);
+                    }else{
+                        toastr.error(data.errMsg);
+                    }
+                },
+                error: function(err){
+                    console.log('error: ' + err);
+                }
+            });
+        });
+
+        $("#upload6").click(function(){
+            //do something
+            var file = $("#photo6")[0].files;
+            //上次修改时间
+            console.log("文件上次修改时间"+file[0].lastModifiedDate);
+            //名称
+            console.log("文件名称"+file[0].name);
+            //大小 字节
+            console.log("文件大小"+file[0].size);
+            //类型
+            console.log("文件类型"+file[0].type);
+            //创建FormData对象
+            var data = new FormData();
+            //为FormData对象添加数据
+            $.each(file, function(i, file) {
+                data.append('uploadFile', file);
+            });
+            $.ajax({
+                data: data,
+                url: '/upload',
+                type:"post",
+                dataType: 'JSON',
+                contentType: false,    //不可缺
+                processData: false,    //不可缺
+                success: function(data){
+                    if (data.errorCode == 0) {
+                        toastr.success('提交数据成功');
+                        $("#tb_departments").bootstrapTable('refresh');
+                        $("#itemImg6").val(data.url);
+                    }else{
+                        toastr.error(data.errMsg);
+                    }
+                },
+                error: function(err){
+                    console.log('error: ' + err);
+                }
+            });
+        });
+
+        $("#btn_submit").click(function () {
+            postdata.username = $("#txt_edit_name").val();
+            postdata.password = $("#txt_edit_pass").val();
+            postdata.type = $("#txt_edit_type").val();
+            if(!postdata.username || !postdata.password || !postdata.type){
+                return toastr.error('信息填写不完整');
+            }
+            $.ajax({
+                type: "post",
+                url: "/addEditUser",
+                data: { "userInfo": JSON.stringify(postdata) },
+                success: function (data) {
+                    if (data.errorCode == 0) {
+                        toastr.success('提交数据成功');
+                        $("#tb_departments").bootstrapTable('refresh');
+                    }else{
+                        toastr.warning('请填写唯一的用户名信息');
+                    }
+                },
+                error: function () {
+                    toastr.error('Error');
+                },
+                complete: function () {
+
+                }
+
+            });
+        });
+
+        $("#btn_query").click(function () {
+            $("#tb_departments").bootstrapTable('refresh');
+        });
+
+
+</script>
+<!--/.table-->
+<% include common/footer %><!-- 脚栏 -->
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+@import '../common/lib/common.wxss';
+
+.upside {
+  width: 100%;
+  height: 15%;
+}
+
+.basictopic {
+  color: #00fcd0;
+  font-size: 70rpx;
+  margin-left: 2%;
+  margin-top: 5%;
+  font-family: "Bouquet Typeface";
+}
+
+.downside {
+  margin-top: 10%;
+  width: 100%;
+  height: 75%;
+}
+
+.basicfont {
+  color: #ffffff;
+  font-size: 37rpx;
+  font-weight: 700;
+  font-family: "微软雅黑";
+}

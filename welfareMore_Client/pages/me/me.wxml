@@ -1,0 +1,46 @@
+<view class = 'upside'>
+  <view class="topic">WelfareGo</view>
+     <view class="userinfo">
+      <view class="userinfo-avatar">
+        <open-data type="userAvatarUrl"></open-data>
+      </view> 
+  </view>
+  <view class='namefont'> 公益小达人： <open-data type="userNickName"></open-data></view>
+</view>
+
+
+<view class = 'itemsdis'>
+  <block wx:for="{{iteminfos}}" wx:key="{{index}}" wx:for-item="item">
+  <view class = 'itemcss'>
+    <view class = 'h1'>
+      <view class = 'h1leftside'>
+          <image bindtap='tapItem' 
+          bindtap = 'tapMy'  id="{{index}}"
+          class='iconimages'
+          src= "{{item.iconaddr}}"
+          style='margin-top:0rpx'
+          mode='aspectFit'>
+        </image>
+        <view bindtap = 'tapMy'  id="{{index}}"  class='basicfont' >{{item.name}}</view>
+      </view>
+      <image bindtap='tapItem' 
+          id="{{index}}"
+          bindtap='tapMy'
+          class='iconimages'
+          hidden = "{{item.hasSec == false}}"
+          src= "{{item.rightarrowaddr}}"
+          style='margin-top:0rpx'
+          mode='aspectFit'>
+        </image>
+    </view>
+    <image src = '../../images/line1.png'  style='height:1px; margin-bottom:30rpx;margin-left:70rpx;'/>
+  </view>
+</block>
+</view>
+
+  
+
+
+ <view class = 'bordernone'>
+  由金心于(www.bdhnjlg.com)提供技术支持
+ </view> 

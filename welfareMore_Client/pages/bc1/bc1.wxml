@@ -1,0 +1,5 @@
+<view hidden='{{showrende}}' >
+<image class = 'bgimg' src = "{{bgurl}}" mode = 'widthFix'>
+</image>
+</view>
+ 

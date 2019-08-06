@@ -1,0 +1,27 @@
+<view class="page">
+
+  <view class = 'upside'>
+    <view class=" basictopic" >
+    {{topicContent}}
+    </view>
+  </view>
+  
+  <image src = '../../images/line1.png' style='height:1px; margin-top:30rpx;'/>
+  
+  <view class = 'downside'>
+          <scroll-view scroll-y style="height: 100%;" 
+                          bindscrolltoupper="upper" 
+                          bindscrolltolower="lower" 
+                          bindscroll="scroll"
+                          scroll-into-view="{{toView}}" 
+                          scroll-top="{{scrollTop}}">
+            <block wx:for="{{lists}}" wx:key="{{index}}" wx:for-item="item">
+             <view  class='basicfont'  style='margin-bottom:3rpx;margin-left:15rpx;'>发起人ID: {{lists[index].salesId}}</view>
+             <image src = '../../images/line2.png' style='height:1px; margin-bottom:30rpx;margin-left:15rpx;'/>
+            </block>
+          </scroll-view>
+
+  </view>
+
+</view>
+  

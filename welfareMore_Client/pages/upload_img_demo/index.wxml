@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<import src="../common/image_uploader/image_uploader.wxml" />
+<view class="page">
+  <view class="container">
+    <template is="image_uploader" data="{{...img1}}" />
+  </view>
+</view>
+

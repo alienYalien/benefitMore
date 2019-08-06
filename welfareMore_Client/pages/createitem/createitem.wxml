@@ -1,0 +1,79 @@
+<!--index.wxml-->
+<import src="../common/image_uploader/image_uploader.wxml" />
+<view class="page" wx:if='{{img1.isShow}}'>
+  <view class="container">
+    <template is="image_uploader" data="{{...img1}}" />
+  </view>
+</view>
+
+
+
+<tipbox title='{{tipcontent.title}}' content='{{tipcontent.content}}' bindinputCancel='onInputCancel' bindinputConfirm='onInputConfirm' wx:if='{{ tipcontent.bshow }}'/>
+
+<view class="cmpinfo">
+
+  <!-- BEGIN:组织信息 -->
+  <view>
+    <text class='cmp_topic'><text style="color:#00FCD0">组织</text>信息</text> 
+    <view>
+      <block wx:for="{{cmpinfos}}" wx:key="{{index}}" wx:for-item="item">
+          <view class="flex-wrp" style="flex-direction:row; justify-content:space-around">
+            <block wx:for="{{item.child}}" wx:key="{{id}}" wx:for-item="child">
+              <view class="{{child.css}}" >
+              <input class="{{child.css2}}"placeholder-class="{{child.phcss}}" disabled='{{confirmbtninfos.result}}' disabled='{{child.disabled}}' id = '{{child.id}}' maxlength='{{child.length}}' type= '{{child.texttype}}'placeholder='{{ child.placeholder }}' cursor-spacing='150'  bindinput='onInput'/>
+              </view>
+            </block>
+          </view>
+      </block>
+    </view>
+  </view>
+  <!-- END:组织信息 -->
+
+  <!-- 分割线 -->
+  <view class='cut-off-line'></view>
+  <!-- 分割线 -->
+
+  <!-- BEGIN:公益活动信息 -->
+  <text class='cmp_topic'><text style="color:#00FCD0">公益活动</text>信息</text>
+  <view class='itemcolums'>
+
+    <view class='bc2'>
+        <input class="singleline-inputv1"  id = '3' maxlength='20' type= 'text'placeholder='公益活动名称' cursor-spacing='150'  bindinput='onInput'/>
+    </view>
+ 
+    <block wx:for="{{iteminfos}}" wx:key="{{index}}" wx:for-item="child">
+      <view class='bc2'>
+        <picker bindchange="bindPickerChange" id = "{{index}}"value="{{child.index}}" range="{{child.array}}">
+            <view class="picker">
+              {{child.placeholder}}：{{child.array[child.index]}}
+            </view>
+        </picker>
+        <!-- <input class="singleline-input"  id = '{{child.id}}' maxlength='{{child.length}}' type= '{{child.texttype}}'placeholder='{{ child.placeholder }}' cursor-spacing='150'  bindinput='onInput'/> -->
+      </view>
+    </block>
+  </view> 
+ 
+  <view class='btn_uploadimg'>
+
+    <button class="btn_uploadimgv1" bindtap='btn_uploadimg'>
+      图片上传: {{img1.uploadedImagesPaths.length}}张
+    </button> 
+  
+    <view class='textarea-wrp'>
+      <textarea  class = 'textareacon' bindinput = 'inputDesc' maxlength = '200' placeholder="{{iteminfo.itemDesc}}"  />
+    </view>
+
+    <view class='btn_confirmcpminfov1'>
+      <button class="btnbasic btnbright" bindtap='btn_uploaditeminfo'>
+      提交
+      </button> 
+         <button class="btnbasic btndark" bindtap='btn_giviuploaditem'>
+      返回
+      </button> 
+    </view>
+
+  </view>
+  <!-- END:公益活动信息 -->
+
+</view>
+

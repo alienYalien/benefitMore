@@ -1,0 +1,95 @@
+<view class = "page">
+
+  <view class = "swiperBody">
+    <swiper bindchange="swiperChange" 
+              class = 'swiper-change'
+              style='height:{{swiperHeight}}px'
+              indicator-active-color="{{swiperParameter.indicator_activecolor}}" 
+              indicator-color="{{swiperParameter.indicator_color}}" 
+              autoplay="{{swiperParameter.autoplay}}"  
+              current="{{swiperParameter.swiperIndex}}" 
+              interval="{{swiperParameter.interval}}"
+              duration="{{swiperParameter.duration}}"
+              indicator-dots="true"
+              circular="true">
+          <block wx:for="{{swiperArray}}" wx:key="{{index}}" wx:for-item="item">
+           <swiper-item>
+              <image bindtap="previewImage" id='{{index}}' src = "{{item}}" style = 'width:100%; height:{{swiperHeight}}px;'></image>
+           </swiper-item>
+        </block>
+      </swiper>
+  </view>
+
+  <view class = "itemInfoBody">
+     
+    <!-- 标题 -->
+    <view class="flex-wrp" style="flex-direction:row; justify-content:space-around">
+      <block wx:for="{{tabs}}" wx:key="*this">
+        <view id="{{index}}" class="weui-navbar__title" bindtap="tabClick">
+            <view>{{item}}</view>
+            <view class="{{activeIndex == index ? 'activeitem' : ''}}"></view>
+        </view>
+      </block>
+    </view>
+    <!-- 标题 -->
+    <view class='itemcontent'>
+        <!--组织信息-->
+        <view hidden='{{activeIndex != 0}}'>
+         <scroll-view scroll-y style="height: {{scrollHeight}}px;" 
+                         bindscrolltoupper="upper" 
+                         bindscrolltolower="lower" 
+                         bindscroll="scroll"
+                         scroll-into-view="{{toView}}" 
+                         scroll-top="{{scrollTop}}">
+          <block wx:for="{{cmpInfoArray}}" wx:key="{{index}}">
+            <view id="{{index}}" class="iteminfo_content" >
+              <view class = "iteminfo_h1">
+                <view class="iteminfo_h2">
+                  <view class=''>{{item.name}}</view>
+                  <view class=''>{{item.content}}</view>
+                </view> 
+                <view class="itemcontent_underline"></view>
+              </view>  
+            </view>
+          </block>
+          </scroll-view>
+        </view>
+        <!--组织信息-->
+        
+        <!--公益活动信息-->
+        <view hidden='{{activeIndex != 1}}' >
+            <scroll-view scroll-y style="width:100%;height: {{scrollHeight}}px;"  
+                         bindscrolltoupper="upper" 
+                         bindscrolltolower="lower" 
+                         bindscroll="scroll"
+                         scroll-into-view="{{toView}}" 
+                         scroll-top="{{scrollTop}}">
+              <view style='display:inline-block; width:100%;height:1200rpx;'>
+               <block wx:for="{{itemInfoArray}}" wx:key="{{index}}">
+                <view id="{{index}}" class="iteminfo_content">
+                  <view class = "iteminfo_h1">
+                    <view class="iteminfo_h2">
+                      <view class=''>{{item.name}}</view>
+                      <view class='h3'>{{item.content}}</view>
+                    </view> 
+                    <view class="itemcontent_underline"></view>
+                  </view>  
+                </view>
+              </block>
+              <view class = 'itemdesc'>活动简介</view>
+              <view class = 'textarea-wrp' style = 'margin-left:10%;height:500rpx;width:80%;'>
+                {{iteminfo.itemDesc}}
+              </view>
+              </view>
+            </scroll-view>
+        </view>
+        <!--公益活动信息-->
+    </view>
+  <view class="bordernone">
+      由金心于(www.bdhnjlg.com)提供技术支持
+  </view> 
+  </view>
+  
+</view>
+
+

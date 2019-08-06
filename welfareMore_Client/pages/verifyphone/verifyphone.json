@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "tipbox": "../../components/tipbox/tipbox"
+  },
+  "disableScroll": true
+}

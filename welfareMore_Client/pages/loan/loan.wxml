@@ -1,0 +1,116 @@
+<view class="page">
+
+  <!-- 广告位 -->
+  <view class='body_swiper'>
+    <swiper class = 'swiper-change' 
+            style='height:{{swiperHeight}}px'
+            bindchange="swiperChange" 
+            indicator-active-color="#595959" 
+            indicator-color="#fff" 
+            autoplay="{{autoplay}}"  
+            current="{{swiperIndex}}" 
+            interval="{{interval}}"
+            duration="{{duration}}"
+            circular="true">
+      <block wx:for="{{bannerlist}}"  wx:key="{{index}}" wx:for-item="item">
+        <swiper-item>
+          <image 
+              src = '{{item.backimgurl}}' 
+              bindtap='TurnProjectshow' 
+              id="{{item.id}}"
+              style = 'width:100%; height:{{swiperHeight}}px;'/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- end -->
+  <view class = 'aboutus' bindtap = 'aboutus'>
+        关于我们
+  </view>
+  <view class = 'middlepart' style='height:{{middleHeight}}px; width:100%;'>
+    <scroll-view 
+        scroll-y 
+        style="height: {{middleHeight}}px;"
+        bindscrolltoupper="upper" 
+        bindscrolltolower="lower" 
+        bindscroll="scroll"
+    >
+
+        <!--介绍 +  关于我们-->
+        
+        <!-- 活动 + 案例 -->
+        <view class='Body_Procedures' >
+          <view class="Procedures_top_table">
+            <text class='procedures_top_title'><text style="color:#00FCD0">最新</text>公益活动</text>
+            <view class="flex-wrp" style="flex-direction:row; justify-content:space-around">
+              <block wx:for="{{lists}}" wx:key="{{index}}" wx:for-item="item">
+                <view class=" bc1" id = "{{index}}" bindtap="pressNewProjectItem" style='background-color:{{latestitembg[index]}}' >
+                  <image class='latestitem'  src="{{item.iconitemImg}}" mode='aspectFit'></image>
+                  <view class="item_name" >{{item.itemName}}</view>
+                  <view class="item_money" >{{item.itemArea}}</view>
+                </view>
+              </block>
+            </view>
+            <text class="more" bindtap = 'tapMoreNewPro' style="color:#00FCD0">点击更多</text>
+          </view> 
+          <view class="Success_top_table" >
+            <text class='procedures_top_title'><text style="color:#00FCD0">成功</text>公益活动</text>
+                <view class="success-wrp" style="flex-direction:row; justify-content:space-around">
+                  <block wx:for="{{suclists}}" wx:key="{{index}}" wx:for-item="item">
+                    <view class=" success_topic" id = "{{index}}" bindtap="pressSuccItem">
+                    <view class="sucitem_stage">{{item.itemStage}}</view>
+                    <view class="sucitem_name" >{{item.cmpName}}</view>
+                    <view class="sucitem_money" >公益形式:{{item.itemMoney}}</view>
+                      <view class="sucrightcorner">
+                          <image class='sucitem_area'  src="{{sucareaimgs[index]}}" mode='aspectFit'>  </image>
+                          <text class='sucitem_areacont'>公益领域:{{item.itemArea}}</text>
+                      </view>
+                    </view>
+                  </block>
+                </view>
+            <text class="more" bindtap = 'tapMoreSucPro' style="color:#00FCD0">点击更多</text>
+          </view>        
+        </view>
+        <!-- end -->
+    </scroll-view>
+  </view>
+
+  
+  <!-- 底部标签页 -->
+  <tabbar class="mytabbar" bindchange="tabChange" data="{{tabbar}}"></tabbar>
+  <!-- end -->
+  
+  <!-- 分享弹框 -->
+  <view class="temp {{nzopen ? 'slidup' : 'slidown'}} {{nzshow ? 'disappear':''}}">
+    <view class="sliderBg">
+      <view class="flex-wrp" style="flex-direction:row; justify-content:space-around">
+        <block wx:for="{{share}}" wx:key="{{index}}" wx:for-item="item">
+          <view>
+            <button open-type='share' id = '{{index}}' plain='true'>
+              <image class='shareitem' src="{{item.imageurl}}" mode='aspectFit'></image>
+              <view class="item_name">{{item.content}}</view>
+            </button> 
+          </view>
+         
+        </block>
+      </view>
+      
+    </view>
+     <view class="item_line"></view>
+  </view>
+  <!-- end -->
+
+  <!-- 弹出背景mask  -->
+  <view class="fullbg {{isfull ?'fullopacity':''}} {{nzshow ? 'disappear':''}}" bindtap="hidebg"></view>
+  <!-- end -->
+
+</view>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+<tipbox title='{{tipcontent.title}}' content='{{tipcontent.content}}' bindinputCancel='onInputCancel' bindinputConfirm='onInputConfirm' wx:if='{{ tipcontent.bshow }}'/>
+
+  <view class="inputarea" >
+    <view class="topic">Create Item</view>
+    <input class="singleline-input" placeholder-class="place-holder" maxlength='11' type= 'number'placeholder='{{verifycontent.content}}' cursor-spacing='150'  bindinput='onPhoneInput'/>
+    <view class='verifycode'>
+      <input class="verifycode-input" placeholder-class="place-holder" maxlength='11' type= 'number'placeholder='请输入验证码' cursor-spacing='150'  bindinput='onVerifyCodeInput'/>
+      <button class="btnbasic {{btndisabled == true ? 'btndisabled': 'btnenabled'}}" disabled = '{{btndisabled}}' bindtap='btn_verify'  >
+        {{verifycontentv1}}
+      </button> 
+    </view>
+
+    <view class='cmt'>
+      <button class="btnbasic btnenabled"  bindtap='btn_confirmcmpinfo'>
+        提交
+      </button> 
+    </view>
+  </view>
+  

@@ -1,0 +1,886 @@
+<% include common/header %><!-- 顶栏 -->
+
+
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <form role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+    <ul class="nav menu">
+        <li><a href="/"><span class="glyphicon glyphicon-star-empty"></span> 待审核</a></li>
+        <li><a href="/checkPro"><span class="glyphicon glyphicon-star"></span> 已审核</a></li>
+        <li><a href="/salesman"><span class="glyphicon glyphicon-film"></span> 用户管理</a></li>
+        <li class="active"><a href="/advert"><span class="glyphicon glyphicon-th-large"></span> 广告管理</a></li>
+        <li><a href="/user"><span class="glyphicon glyphicon-th"></span> 后台用户管理</a></li>
+        <li ><a href="/power"><span class="glyphicon glyphicon-stats"></span> 权限管理</a></li>
+        <li><a href="/project"><span class="glyphicon glyphicon-pencil"></span> 创建公益活动</a></li>
+        <li><a href="/loginView"><span class="glyphicon glyphicon-user"></span> 登陆</a></li>
+    </ul>
+
+</div><!--/.sidebar-->
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active"><%= path %></li>
+        </ol>
+    </div><!--/.row-->
+
+    <!--<div class="row">-->
+        <!--<div class="col-lg-12">-->
+            <!--<h1 class="page-header"><%= title %></h1>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--/.row-->
+
+    <div class="modal fade" id="myInfo" tabindex="-1" role="dialog" aria-labelledby="myInfoLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myInfoLabel">角色信息</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txt_search_name">用户名</label>
+                        <input type="text" name="myInfo_name" class="form-control" id="myInfo_name" placeholder="用户名">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_search_pass">角色类型</label>
+                        <input type="text" name="myInfo_type" class="form-control" id="myInfo_type" placeholder="角色类型">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_search_type">角色职位</label>
+                        <input type="text" name="myInfo_powerName" class="form-control" id="myInfo_powerName" placeholder="角色职位">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_search_type">角色权限</label>
+                        <input type="text" name="myInfo_power" class="form-control" id="myInfo_power" placeholder="角色权限">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_search_type">角色权限描述</label>
+                        <input type="text" name="myInfo_powerDes" class="form-control" id="myInfo_powerDes" placeholder="角色权限描述">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="imgInfo" tabindex="-1" role="dialog" aria-labelledby="imgShowLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body" align="center">
+                    <img id="imgShow" src=""/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">修改</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="txt_edit_id">活动id</label>
+                        <input type="text" name="txt_edit_id" class="form-control" id="txt_edit_id" placeholder="活动id">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_name">法人名称</label>
+                        <input type="text" name="txt_edit_name" class="form-control" id="txt_edit_name" placeholder="张三">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_phone">活动负责人电话</label>
+                        <input type="text" name="txt_edit_phone" class="form-control" id="txt_edit_phone" placeholder="134xxxxxx81">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txt_edit_cmpName">发起组织名称</label>
+                        <input type="text" name="txt_edit_cmpName" class="form-control" id="txt_edit_cmpName" placeholder="xxx公益组织">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_itemName">活动名称</label>
+                        <input type="text" name="txt_edit_itemName" class="form-control" id="txt_edit_itemName" placeholder="xxx活动">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_itemName">活动简介</label>
+                        <textarea name="txt_edit_itemDesc" rows="10" cols="3" class="form-control" id="txt_edit_itemDesc" placeholder="活动简介"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_itemType">活动类型</label>
+                        <select name="txt_edit_itemType" class="form-control">
+                            <option value='0'>学校组织</option>
+                            <option value='1'>个人</option>
+                            <option value='2'>社区组织</option>
+                            <option value='3'>俱乐部</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_itemTypeShow">是否显示活动类型</label>
+                        <!--<input type="text" name="txt_edit_itemTypeShow" class="form-control" id="txt_edit_itemTypeShow" placeholder="1">-->
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_itemTypeShow" value="1" checked="true">保密
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_itemTypeShow" value="0">公开
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_itemStage">活动审核阶段</label>
+                        <!--<input type="text" name="txt_edit_itemStage" class="form-control" id="txt_edit_itemStage" placeholder="0">-->
+                        <select name="txt_edit_itemStage" class="form-control">
+                            <option value='0'>未审核</option>
+                            <option value='1'>1期审核</option>
+                            <option value='2'>2期审核</option>
+                            <option value='3'>3期审核</option>
+                            <option value='7'>审核完成</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_itemArea">活动领域</label>
+                        <!--<input type="text" name="txt_edit_itemArea" class="form-control" id="txt_edit_itemArea" placeholder="互联网">-->
+                        <select name="txt_edit_itemArea" class="form-control">
+                            <option value='0' selected='selected'>扶贫济困</option>
+                            <option value='1'>医疗卫生</option>
+                            <option value='2'>弱势群体</option>
+                            <option value='3'>动物保护</option>
+                            <option value='6'>生态环境</option>
+                            <option value='7'>知识传播</option>
+                            <option value='8'>关爱生命</option>
+                            <option value='9'>公共福利</option>
+                            <option value='10'>空气保护</option>
+                            <option value='11'植被保护</option>
+                            <option value='12'>毒品教育</option>
+                            <option value='13'>儿童成长</option>
+                            <option value='14'>公益创业</option>
+                            <option value='23'>其他</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_itemAreaShow">是否显示活动</label>
+                        <!--<input type="text" name="txt_edit_itemAreaShow" class="form-control" id="txt_edit_itemAreaShow" placeholder="1">-->
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_itemAreaShow" value="1" checked="true">保密
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_itemAreaShow" value="0">公开
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_itemMoney">活动形式</label>
+                        <!--<input type="text" name="txt_edit_itemMoney" class="form-control" id="txt_edit_itemMoney" placeholder="100">-->
+                        <select name="txt_edit_itemMoney" class="form-control">
+                            <option value='0' selected='selected'>培训</option>
+                            <option value='1'>户外活动、探访</option>
+                            <option value='2'>晚会、公益演出</option>
+                            <option value='3'>沙龙、讲座、论坛</option>
+                            <option value='4'>爱心捐募</option>
+                            <option value='5'>公益广告、微电影</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txt_edit_itemMoneyShow">是否显示活动形式</label>
+                        <!--<input type="text" name="txt_edit_itemMoneyShow" class="form-control" id="txt_edit_itemMoneyShow" placeholder="1">-->
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_itemMoneyShow" value="1" checked="true">保密
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_itemMoneyShow" value="0">公开
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txt_edit_itemPlace">活动所在地区</label>
+                        <input type="text" name="txt_edit_itemPlace" class="form-control" id="txt_edit_itemPlace" placeholder="唐山">
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_itemPlaceShow">是否显示所在地</label>
+                        <!--<input type="text" name="txt_edit_itemPlaceShow" class="form-control" id="txt_edit_itemPlaceShow" placeholder="1">-->
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_itemPlaceShow" value="1" checked="true">保密
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_itemPlaceShow" value="0">公开
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_businessv1">一级发起人</label>
+                        <input type="text" name="txt_edit_businessv1" class="form-control" id="txt_edit_businessv1" placeholder="李四">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txt_edit_businessv1Show">是否显示一级发起人</label>
+                        <!--<input type="text" name="txt_edit_businessv1Show" class="form-control" id="txt_edit_businessv1Show" placeholder="1">-->
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_businessv1Show" value="1" checked="true">保密
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_businessv1Show" value="0">公开
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt_edit_businessv2">二级发起人</label>
+                        <input type="text" name="txt_edit_businessv2" class="form-control" id="txt_edit_businessv2" placeholder="王五">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txt_edit_businessv2Show">是否显示二级发起人</label>
+                        <!--<input type="text" name="txt_edit_businessv2Show" class="form-control" id="txt_edit_businessv2Show" placeholder="1">-->
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_businessv2Show" value="1" checked="true">保密
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="txt_edit_businessv2Show" value="0">公开
+                        </label>
+                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="txt_edit_isTop">是否置顶</label>-->
+                        <!--&lt;!&ndash;<input type="text" name="txt_edit_isTop" class="form-control" id="txt_edit_isTop" placeholder="李四">&ndash;&gt;-->
+                        <!--<label class="checkbox-inline">-->
+                            <!--<input type="radio" name="txt_edit_isTop" value="0" checked="true">不置顶-->
+                        <!--</label>-->
+                        <!--<label class="checkbox-inline">-->
+                            <!--<input type="radio" name="txt_edit_isTop" value="1">置顶-->
+                        <!--</label>-->
+                    <!--</div>-->
+
+                    <div class="form-group">
+                        <label for="txt_edit_createTime">创建时间</label>
+                        <input type="text" name="txt_edit_createTime" class="form-control" readonly="true" id="txt_edit_createTime" placeholder="1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--/.table-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <H1 class="panel-heading">待审核数据</H1>
+                <div class="panel-body">
+                    <div class="panel panel-default">
+                        <!--<div class="panel-heading">查询条件</div>-->
+                        <div class="panel-body">
+                            <form id="formSearch" class="form-horizontal">
+                                <div class="form-group" style="margin-top:15px">
+                                    <label class="control-label col-sm-1" for="txt_search_name">发起组织名称</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="txt_search_cmpname">
+                                    </div>
+                                    <label class="control-label col-sm-1" for="txt_search_type">负责人</label>
+                                    <div class="col-sm-1">
+                                        <input type="text" class="form-control" id="txt_search_name">
+                                    </div>
+                                    <label class="control-label col-sm-1" for="txt_search_type">活动类型</label>
+                                    <div class="col-sm-2">
+                                        <select id="txt_search_type" class="form-control">
+                                            <option value='-1' selected='selected'>全部</option>
+                                            <option value='0'>学校组织</option>
+                                            <option value='1'>个人</option>
+                                            <option value='2'>社区组织</option>
+                                            <option value='3'>俱乐部</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2" style="text-align:left;">
+                                        <button type="button" style="margin-left:50px" id="btn_query" class="btn btn-primary">精确查询</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="toolbar" class="btn-group">
+                        <button id="btn_pass" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>审核通过
+                        </button>
+                        <button id="btn_edit" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                        </button>
+                        <button id="btn_delete" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                        </button>
+                    </div>
+                    <table id="tb_departments"></table>
+                </div>
+            </div>
+        </div>
+    </div><!--/.row-->
+    <script>
+
+        function showImg(src){
+//            src = src.replace('#img#proImg#','img\\proImg\\');
+            $('#imgShow').attr('src',src);
+            $('#imgInfo').modal();
+        }
+
+        $(function () {
+
+            //1.初始化Table
+            var oTable = new TableInit();
+            oTable.Init();
+
+            //2.初始化Button的点击事件
+            var oButtonInit = new ButtonInit();
+            oButtonInit.Init();
+
+        });
+
+
+        var TableInit = function () {
+            var oTableInit = new Object();
+            //初始化Table
+            oTableInit.Init = function () {
+                $('#tb_departments').bootstrapTable({
+                    url: '/getPro',         //请求后台的URL（*）
+                    method: 'get',                      //请求方式（*）
+                    toolbar: '#toolbar',                //工具按钮用哪个容器
+                    striped: true,                      //是否显示行间隔色
+                    cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                    pagination: true,                   //是否显示分页（*）
+                    sortable: false,                     //是否启用排序
+                    sortOrder: "asc",                   //排序方式
+                    queryParams: oTableInit.queryParams,//传递参数（*）
+                    sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                    pageNumber:1,                       //初始化加载第一页，默认第一页
+                    pageSize: 5,                       //每页的记录行数（*）
+                    pageList: [5, 10, 15, 30],        //可供选择的每页的行数（*）
+                    search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                    strictSearch: true,
+                    showColumns: true,                  //是否显示所有的列
+                    showRefresh: true,                  //是否显示刷新按钮
+                    minimumCountColumns: 2,             //最少允许的列数
+                    clickToSelect: true,                //是否启用点击选中行
+                    height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                    uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                    showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+                    cardView: false,                    //是否显示详细视图
+                    detailView: false,                   //是否显示父子表
+                    columns: [{
+                        checkbox: true
+                    },
+                        {
+                        field: 'proId',
+                        title: '活动编号'
+                    }, {
+                        field: 'legalManName',
+                        title: '发起人名称'
+                    }, {
+                        field: 'legalManPhone',
+                        title: '活动负责人电话'
+                    },{
+                        field: 'cmpName',
+                        title: '发起组织名称'
+                    }, {
+                        field: 'itemName',
+                        title: '活动名称'
+                    },{
+                        field: 'itemDesc',
+                        title: '活动简介',
+                        cellStyle: function(){
+                            return {css: {"min-width": "250px"}};
+                        }
+                    }, {
+                        field: 'itemType',
+                        title: '活动类型',
+                        formatter: function indexFormatter(value, row, index) {
+                            switch (value){
+                                case 0:
+                                return "学校组织";
+                                case 1:
+                                    return "个人";
+                                case 2:
+                                    return "社会组织";
+                                case 3:
+                                    return "俱乐部";
+                                default :
+                                    return "活动类型异常";
+                            }
+                        },
+                        cellStyle: function(){
+                            return {css: {"min-width": "30%"}};
+                        }
+                     },{
+                        field: 'itemTypeShow',
+                        title: '是否显示活动类型',
+                        formatter: function indexFormatter(value, row, index) {
+                            switch (value){
+                                case 0:
+                                    return "公开";
+                                case 1:
+                                    return "保密";
+                            }
+                        }
+                    },{
+                        field: 'itemStage',
+                        title: '活动审核进度',
+                        formatter: function indexFormatter(value, row, index) {
+                            switch (value){
+                                case 0:
+                                    return "未审核";
+                                case 1:
+                                    return "1期审核";
+                                case 2:
+                                    return "2期审核";
+                                case 3:
+                                    return "3期审核";
+                                case 4:
+                                    return "4期审核";
+                                case 5:
+                                    return "5期审核";
+                                case 6:
+                                    return "6期审核";
+                                case 7:
+                                    return "融资成功";
+                                default :
+                                    return "活动审核进度异常";
+                            }
+                        }
+                    }, {
+                        field: 'itemImg',
+                        title: '活动图片路径',
+                        formatter: function indexFormatter(value, row, index) {
+                           if(value!="" && null!=value){
+                               /** 这里右斜杠 会当成转义字符过滤掉 所以转换成 左斜杠 */
+                               var newvalue = value.replace('\\img\\proImg\\','/img/proImg/');
+                               return '<a href=javascript:showImg("'+newvalue+'")>' +
+                                       '<img style="height: 100px; width: 100px;" src="'+value+'" />' +
+                                       '</a>';
+                           }
+                        }
+                    }, {
+                        field: 'itemImg2',
+                        title: '活动图片2路径',
+                        formatter: function indexFormatter(value, row, index) {
+                            if(value!="" && null!=value){
+                                var newvalue = value.replace('\\img\\proImg\\','/img/proImg/');
+                                return '<a href=javascript:showImg("'+newvalue+'")>' +
+                                        '<img style="height: 100px; width: 100px;" src="'+value+'" />' +
+                                        '</a>';
+                            }
+                        }
+                    }, {
+                        field: 'itemImg3',
+                        title: '活动图片3路径',
+                        formatter: function indexFormatter(value, row, index) {
+                            if(value!="" && null!=value){
+                                var newvalue = value.replace('\\img\\proImg\\','/img/proImg/');
+                                return '<a href=javascript:showImg("'+newvalue+'")>' +
+                                        '<img style="height: 100px; width: 100px;" src="'+value+'" />' +
+                                        '</a>';
+                            }
+                        }
+                        }, {
+                        field: 'itemImg4',
+                        title: '活动图片4路径',
+                            formatter: function indexFormatter(value, row, index) {
+                                if(value!="" && null!=value){
+                                    var newvalue = value.replace('\\img\\proImg\\','/img/proImg/');
+                                    return '<a href=javascript:showImg("'+newvalue+'")>' +
+                                            '<img style="height: 100px; width: 100px;" src="'+value+'" />' +
+                                            '</a>';
+                                }
+                            }
+                        }, {
+                        field: 'itemImg5',
+                        title: '活动图片5路径',
+                            formatter: function indexFormatter(value, row, index) {
+                                if(value!="" && null!=value){
+                                    var newvalue = value.replace('\\img\\proImg\\','/img/proImg/');
+                                    return '<a href=javascript:showImg("'+newvalue+'")>' +
+                                            '<img style="height: 100px; width: 100px;" src="'+value+'" />' +
+                                            '</a>';
+                                }
+                            }
+                        },{
+                        field: 'itemImg6',
+                        title: '活动图片6路径',
+                            formatter: function indexFormatter(value, row, index) {
+                                if(value!="" && null!=value){
+
+                                    var newvalue = value.replace('\\img\\proImg\\','/img/proImg/');
+                                    return '<a href=javascript:showImg("'+newvalue+'")>' +
+                                            '<img style="height: 100px; width: 100px;" src="'+value+'" />' +
+                                            '</a>';
+                                }
+                            }
+                        },{
+                        field: 'itemArea',
+                        title: '活动行业',
+                        formatter: function indexFormatter(value, row, index) {
+                            switch (value){
+                                case 0:
+                                return "电子商务";
+                            case 1:
+                                return "社交网络";
+                            case 2:
+                                return "企业服务";
+                            case 3:
+                                return "教育培训";
+                            case 4:
+                                return "消费生活";
+                            case 5:
+                                return "软件开发";
+                            case 6:
+                                return "黄金";
+                            case 7:
+                                return "外币";
+                            case 8:
+                                return "数字分析";
+                            case 9:
+                                return "信用服务";
+                            case 10:
+                                return "投资理财";
+                            case 11:
+                                return "安全";
+                            case 12:
+                                return "化工";
+                            case 13:
+                                return "钢铁";
+                            case 14:
+                                return "机械加工";
+                            case 15:
+                                return "能源再利用";
+                            case 16:
+                                return "医疗卫生";
+                            case 17:
+                                return "科技创新";
+                            case 18:
+                                return "仓储物流";
+                            case 19:
+                                return "养殖畜牧";
+                            case 20:
+                                return "农业生产";
+                            case 21:
+                                return "互联网";
+                            case 22:
+                                return "装备制造";
+                            case 23:
+                                return "其他";
+                            default :
+                                return "活动行业异常";
+                            }
+                        }
+                        }, {
+                            field: 'itemAreaShow',
+                            title: '是否显示活动行业',
+                            formatter: function indexFormatter(value, row, index) {
+                                switch (value){
+                                    case 0:
+                                        return "公开";
+                                    case 1:
+                                        return "保密";
+                                }
+                            }
+                        }, {
+                            field: 'itemMoney',
+                            title: '活动融资金额',
+                            formatter: function indexFormatter(value, row, index) {
+                                switch (value){
+                                    case 0:
+                                        return "500万元以下";
+                                    case 1:
+                                        return "500 - 1000万元";
+                                    case 2:
+                                        return "1000 - 3000万元";
+                                    case 3:
+                                        return "1000 - 5000万元";
+                                    case 4:
+                                        return "5000 - 7000万元";
+                                    case 5:
+                                        return "7000万元以上";
+                                    default :
+                                        return "活动融资金额异常";
+                                }
+                            }
+                        }, {
+                            field: 'itemMoneyShow',
+                            title: '是否显示活动融资金额',
+                            formatter: function indexFormatter(value, row, index) {
+                                switch (value){
+                                    case 0:
+                                        return "公开";
+                                    case 1:
+                                        return "保密";
+                                }
+                            }
+                        }, {
+                            field: 'itemPlace',
+                            title: '活动所在地区'
+                        },{
+                            field: 'itemPlaceShow',
+                            title: '是否显示活动所在地',
+                            formatter: function indexFormatter(value, row, index) {
+                                switch (value){
+                                    case 0:
+                                        return "公开";
+                                    case 1:
+                                        return "保密";
+                                }
+                            }
+                        }, {
+                            field: 'businessv1',
+                            title: '一级发起人'
+                        }, {
+                            field: 'businessv1Show',
+                            title: '是否显示一级发起人',
+                            formatter: function indexFormatter(value, row, index) {
+                                switch (value){
+                                    case 0:
+                                        return "公开";
+                                    case 1:
+                                        return "保密";
+                                }
+                            }
+                        },{
+                            field: 'businessv2',
+                            title: '二级发起人'
+                        }, {
+                            field: 'businessv2Show',
+                            title: '是否显示二级发起人',
+                            formatter: function indexFormatter(value, row, index) {
+                                switch (value){
+                                    case 0:
+                                        return "公开";
+                                    case 1:
+                                        return "保密";
+                                }
+                            }
+                        },{
+                            field: 'isTop',
+                            title: '是否置顶',
+                            formatter: function indexFormatter(value, row, index) {
+                                switch (value){
+                                    case 0:
+                                        return "未置顶";
+                                    case 1:
+                                        return "置顶";
+                                }
+                            }
+                        },{
+                            field: 'createTime',
+                            title: '创建时间'
+                        }]
+                });
+            };
+
+
+            //得到查询的参数
+            oTableInit.queryParams = function (params) {
+                var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                    limit: params.limit,   //页面大小
+                    offset: params.offset,  //页码
+                    cmpname: $("#txt_search_cmpname").val(),
+                    name: $("#txt_search_name").val(),
+                    type: $("#txt_search_type").val(),
+                    search:params.search,
+                    check:2 //区分已审核 和 待审核数据
+                };
+                return temp;
+            };
+
+            return oTableInit;
+        };
+
+
+        var ButtonInit = function () {
+            var oInit = new Object();
+            var postdata = {};
+
+            oInit.Init = function () {
+                $("#btn_add").click(function () {
+                    $("#myModalLabel").text("新增");
+                    $("#myModal").find(".form-control").val("");
+                    $('#myModal').modal()
+
+                    postdata.DEPARTMENT_ID = 1;
+                });
+
+                $("#btn_edit").click(function () {
+                    var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+                    if (arrselections.length > 1) {
+                        toastr.warning('只能选择一行进行编辑');
+
+                        return;
+                    }
+                    if (arrselections.length <= 0) {
+                        toastr.warning('请选择有效数据');
+
+                        return;
+                    }
+                    $("#myModalLabel").text("编辑");
+                    $("#txt_edit_id").val(arrselections[0].proId);
+                    $("#txt_edit_name").val(arrselections[0].legalManName);
+                    $("#txt_edit_phone").val(arrselections[0].legalManPhone);
+                    $("#txt_edit_cmpName").val(arrselections[0].cmpName);
+                    $("#txt_edit_itemName").val(arrselections[0].itemName);
+                    $("#txt_edit_itemDesc").val(arrselections[0].itemDesc);
+//                    $("#txt_edit_itemType").val(arrselections[0].itemType);
+                    $("select[name='txt_edit_itemType']").val(arrselections[0].itemType);
+//                    $("#txt_edit_itemTypeShow").val(arrselections[0].itemTypeShow);
+                    $("input[name='txt_edit_itemTypeShow'][value='"+arrselections[0].itemTypeShow+"']").attr("checked",true);
+//                    $("#txt_edit_itemStage").val(arrselections[0].itemStage);
+                    $("select[name='txt_edit_itemStage']").val(arrselections[0].itemStage);
+                    $("#txt_edit_itemArea").val(arrselections[0].itemArea);
+//                    $("#txt_edit_itemAreaShow").val(arrselections[0].itemAreaShow);
+                    $("input[name='txt_edit_itemAreaShow'][value='"+arrselections[0].itemAreaShow+"']").attr("checked",true);
+//                    $("#txt_edit_itemMoney").val(arrselections[0].itemMoney);
+                    $("select[name='txt_edit_itemMoney']").val(arrselections[0].itemMoney);
+//                    $("#txt_edit_itemMoneyShow").val(arrselections[0].itemMoneyShow);
+                    $("input[name='txt_edit_itemMoneyShow'][value='"+arrselections[0].itemMoneyShow+"']").attr("checked",true);
+                    $("#txt_edit_itemPlace").val(arrselections[0].itemPlace);
+//                    $("#txt_edit_itemPlaceShow").val(arrselections[0].itemPlaceShow);
+                    $("input[name='txt_edit_itemPlaceShow'][value='"+arrselections[0].itemPlaceShow+"']").attr("checked",true);
+                    $("#txt_edit_businessv1").val(arrselections[0].businessv1);
+//                    $("#txt_edit_businessv1Show").val(arrselections[0].businessv1Show);
+                    $("input[name='txt_edit_businessv1Show'][value='"+arrselections[0].businessv1Show+"']").attr("checked",true);
+                    $("#txt_edit_businessv2").val(arrselections[0].businessv2);
+//                    $("#txt_edit_businessv2Show").val(arrselections[0].businessv2Show);
+                    $("input[name='txt_edit_businessv2Show'][value='"+arrselections[0].businessv2Show+"']").attr("checked",true);
+//                    $("#txt_edit_isTop").val(arrselections[0].isTop);
+                    $("#txt_edit_createTime").val(arrselections[0].createTime);
+                    postdata.DEPARTMENT_ID = 2;
+                    $('#myModal').modal();
+                });
+
+                $("#btn_pass").click(function () {
+                    var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+                    if (arrselections.length <= 0) {
+                        toastr.warning('请选择有效数据');
+                        return;
+                    }
+
+                    Ewin.confirm({ message: "确认要审核通过选择的数据吗？" }).on(function (e) {
+                        if (!e) {
+                            return;
+                        }
+                        $.ajax({
+                            type: "post",
+                            url: "passProject",
+                            data: { "projectInfo": JSON.stringify(arrselections) },
+                            success: function (data, status) {
+                                if (status == "success") {
+                                    toastr.success('审核数据成功');
+                                    $("#tb_departments").bootstrapTable('refresh');
+                                }
+                            },
+                            error: function () {
+                                toastr.error('Error');
+                            },
+                            complete: function () {
+
+                            }
+
+                        });
+                    });
+                });
+
+                $("#btn_delete").click(function () {
+                    var arrselections = $("#tb_departments").bootstrapTable('getSelections');
+                    if (arrselections.length <= 0) {
+                        toastr.warning('请选择有效数据');
+                        return;
+                    }
+
+                    Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
+                        if (!e) {
+                            return;
+                        }
+                        $.ajax({
+                            type: "post",
+                            url: "deleteProject",
+                            data: { "projectInfo": JSON.stringify(arrselections) },
+                            success: function (data, status) {
+                                if (status == "success") {
+                                    toastr.success('提交数据成功');
+                                    $("#tb_departments").bootstrapTable('refresh');
+                                }
+                            },
+                            error: function () {
+                                toastr.error('Error');
+                            },
+                            complete: function () {
+
+                            }
+
+                        });
+                    });
+                });
+
+                $("#btn_submit").click(function () {
+                    postdata.proId = $("#txt_edit_id").val();
+                    postdata.legalManName = $("#txt_edit_name").val();
+                    postdata.legalManPhone = $("#txt_edit_phone").val();
+                    postdata.cmpName = $("#txt_edit_cmpName").val();
+                    postdata.itemName = $("#txt_edit_itemName").val();
+                    postdata.itemDesc = $("#txt_edit_itemDesc").val();
+                    postdata.itemType =  $("select[name='txt_edit_itemType']").val();
+                    postdata.itemTypeShow = $('input[name=txt_edit_itemTypeShow][checked]').val();
+                    postdata.itemArea = $("select[name='txt_edit_itemArea']").val();
+                    postdata.itemAreaShow = $('input[name=txt_edit_itemAreaShow][checked]').val();
+                    postdata.itemMoney = $("select[name='txt_edit_itemMoney']").val();
+                    postdata.itemMoneyShow =  $('input[name=txt_edit_itemMoneyShow][checked]').val();
+                    postdata.itemPlace = $("#txt_edit_itemPlace").val();
+                    postdata.itemPlaceShow =  $('input[name=txt_edit_itemPlaceShow][checked]').val();
+                    postdata.businessv1 = $("#txt_edit_businessv1").val();
+                    postdata.businessv1Show = $('input[name=txt_edit_businessv1Show][checked]').val();
+                    postdata.businessv2 = $("#txt_edit_businessv2").val();
+                    postdata.businessv2Show = $('input[name=txt_edit_businessv2Show][checked]').val();
+                    postdata.itemround = $("#txt_edit_itemround").val();
+                    postdata.itemStage =  $("select[name='txt_edit_itemStage']").val();
+//                    postdata.isTop = $('input[name=txt_edit_isTop][checked]').val();
+
+                    $.ajax({
+                        type: "post",
+                        url: "addEditProject",
+                        data: { "projectInfo": JSON.stringify(postdata) },
+                        success: function (data, status) {
+                            if (status == "success") {
+                                toastr.success('提交数据成功');
+                                $("#tb_departments").bootstrapTable('refresh');
+                            }
+                        },
+                        error: function () {
+                            toastr.error('Error');
+                        },
+                        complete: function () {
+
+                        }
+
+                    });
+                });
+
+                $("#btn_query").click(function () {
+                    $("#tb_departments").bootstrapTable('refresh');
+                });
+            };
+
+            return oInit;
+        };
+
+    </script>
+    <!--/.table-->
+    <% include common/footer %><!-- 脚栏 -->
+</div>
+</body>
+</html>
